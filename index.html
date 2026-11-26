@@ -3,75 +3,119 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0a8f5a">
 <title>Home Coach</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#fbfaf7;--ink:#17201b;--soft:#5b665f;--line:#dfe3dd;--go:#0a8f5a;--warn:#e0611a;--card:#fff}
-@media(prefers-color-scheme:dark){:root{--bg:#101512;--ink:#eef2ee;--soft:#9aa59e;--line:#2a332d;--card:#18201b}}
+:root{--bg:#fffaf2;--ink:#17201b;--soft:#4a544e;--line:#e7e1d6;--card:#fff;--go:#0a8f5a;--goink:#0a6b44;--tint:#e8f5ee;--empty:#f1efe9;--sun:#f4b400;--bad:#d9480f}
+@media(prefers-color-scheme:dark){:root{--bg:#121614;--ink:#eef2ee;--soft:#a9b3ac;--line:#2a332d;--card:#1a211d;--goink:#6fd3a5;--tint:#1d3327;--empty:#202823}}
 *{box-sizing:border-box;min-width:0}
 [hidden]{display:none!important}
 html,body{margin:0;height:100%}
-body{background:var(--bg);color:var(--ink);font:17px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-.wrap{max-width:560px;margin:0 auto;padding:max(16px,env(safe-area-inset-top)) 16px 32px}
-h1{font-size:34px;line-height:1.05;letter-spacing:-.02em;margin:8px 0 4px}
-h2{font-size:22px;margin:24px 0 8px}
+body{background:var(--bg);color:var(--ink);font:18px/1.5 Mukta,"Noto Sans Devanagari",system-ui,sans-serif}
+.wrap{max-width:560px;margin:0 auto;padding:max(16px,env(safe-area-inset-top)) 16px max(32px,env(safe-area-inset-bottom))}
+h1{font-size:30px;line-height:1.1;margin:8px 0 12px;font-weight:800}
+h2{font-size:22px;margin:28px 0 10px;font-weight:800}
 p{margin:4px 0}
-.soft{color:var(--soft);font-size:15px}
-.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-button{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:12px 16px;min-height:48px;cursor:pointer}
-button.on{background:var(--go);border-color:var(--go);color:#fff}
-button.big{width:100%;font-size:20px;font-weight:700;background:var(--go);color:#fff;border:0;min-height:60px}
-.ex{display:grid;grid-template-columns:1fr auto;gap:4px 12px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:10px 0;width:100%;text-align:left}
-.ex b{font-size:20px}
-.lvl{grid-row:span 2;align-self:center;text-align:center;font-weight:800;color:var(--go);font-size:28px;line-height:1}
-.lvl small{display:block;font-size:12px;font-weight:600;color:var(--soft)}
-.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:8px 0}
-.day{aspect-ratio:1;border-radius:10px;background:var(--line);display:grid;place-items:center;font-size:13px;color:var(--soft)}
-.day.done{background:var(--go);color:#fff;font-weight:700}
-#cam{position:fixed;inset:0;background:#000;display:flex;flex-direction:column}
+.soft{color:var(--soft);font-size:16px}
+button{font:inherit;color:inherit;cursor:pointer}
+.who{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.who button{display:flex;align-items:center;justify-content:center;gap:10px;min-height:64px;border-radius:16px;border:2px solid var(--line);background:var(--card);font-size:22px;font-weight:800}
+.who button.on{border-color:var(--go);background:var(--tint)}
+.av{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:17px;color:#17201b}
+.today{background:var(--go);color:#fff;border-radius:20px;padding:20px;margin:16px 0}
+.today .lab{font-size:17px;opacity:.9}
+.today .what{font-size:26px;font-weight:800;line-height:1.15;margin:2px 0 0}
+.today .row{display:flex;align-items:center;gap:14px;margin:0}
+.today svg{flex:none;background:rgba(255,255,255,.15);border-radius:50%}
+.today button{width:100%;min-height:64px;border:0;border-radius:14px;background:#fff;color:#0a6b44;font-size:22px;font-weight:800;margin-top:16px}
+.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.day{aspect-ratio:1;border-radius:12px;background:var(--empty);display:grid;place-items:center;font-size:16px;color:var(--soft);font-weight:600}
+.day.done{background:var(--go);color:#fff}
+.day.now{outline:2px solid var(--go);outline-offset:1px}
+.ex{display:grid;grid-template-columns:72px 1fr auto;gap:4px 14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin:10px 0;width:100%;text-align:left}
+.ex b{font-size:21px;display:block;line-height:1.2}
+.pill{background:var(--tint);color:var(--goink);border-radius:999px;padding:6px 12px;font-weight:800;font-size:15px;white-space:nowrap}
+.fig{fill:none;stroke:var(--go);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.fig .hd{fill:var(--go);stroke:none}
+.fig .prop{stroke:var(--soft);stroke-width:3;opacity:.6}
+.today .fig{stroke:#fff}.today .fig .hd{fill:#fff}.today .fig .prop{stroke:#fff}
+.dcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 16px;margin:8px 0}
+.dcard b{font-size:18px}
+.dcard div{display:flex;justify-content:space-between;gap:10px;font-size:17px}
+.dcard .st{color:var(--sun)}
+details{margin-top:28px;border-top:1px solid var(--line);padding-top:12px}
+summary{font-size:20px;font-weight:800;cursor:pointer;min-height:44px;display:flex;align-items:center}
+.btn{min-height:52px;padding:8px 16px;border-radius:12px;border:2px solid var(--line);background:var(--card);font-size:18px}
+.btn.on{border-color:var(--go);background:var(--tint);font-weight:800}
+input{font:inherit;font-size:18px;min-height:52px;padding:8px 12px;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--ink);flex:1}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.big{width:100%;min-height:64px;border:0;border-radius:16px;background:var(--go);color:#fff;font-size:22px;font-weight:800}
+.place{text-align:center}
+.place svg{width:100%;max-width:420px;height:auto;margin:8px auto;display:block}
+.place p{font-size:22px;line-height:1.4;margin:12px 0 20px}
+#cam{position:fixed;inset:0;background:#000;display:flex;flex-direction:column;color:#fff}
 #stage{position:relative;flex:1;overflow:hidden}
 #stage video,#stage canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
 .mirror{transform:scaleX(-1)}
-#hud{position:absolute;left:0;right:0;top:0;padding:max(12px,env(safe-area-inset-top)) 16px 12px;display:flex;justify-content:space-between;align-items:flex-start;color:#fff;text-shadow:0 1px 4px #000}
-#count{font-size:84px;font-weight:800;line-height:1}
-#count small{font-size:28px;opacity:.8}
-#cue{position:absolute;left:12px;right:12px;bottom:12px;padding:14px 16px;border-radius:14px;font-size:24px;font-weight:700;text-align:center;background:rgba(0,0,0,.6);color:#fff}
-#cue.good{background:rgba(10,143,90,.85)}
-#cue.bad{background:rgba(224,97,26,.9)}
-#bar{display:flex;gap:8px;padding:12px 16px max(12px,env(safe-area-inset-bottom));background:#000}
-#bar button{flex:1;background:#222;color:#fff;border-color:#333}
-#bar #done{background:var(--go);border-color:var(--go);font-weight:700}
-.res{font-size:64px;font-weight:800;color:var(--go);line-height:1}
-.hist{width:100%;border-collapse:collapse;font-size:15px}
-.hist td{padding:8px 4px;border-bottom:1px solid var(--line)}
-.up{background:var(--go);color:#fff;border-radius:14px;padding:14px 16px;margin:12px 0;font-weight:700}
+#hud{position:absolute;left:0;right:0;top:0;padding:max(12px,env(safe-area-inset-top)) 16px 12px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;text-shadow:0 2px 6px #000}
+#name{font-size:24px;font-weight:800;line-height:1.2}
+#tip{font-size:18px;line-height:1.35;margin-top:4px}
+#count{font-size:140px;font-weight:800;line-height:.9;flex:none}
+#count small{font-size:40px;opacity:.85}
+#cd{position:absolute;inset:0;display:grid;place-items:center;font-size:200px;font-weight:800;text-shadow:0 4px 20px #000}
+#cue{position:absolute;left:12px;right:12px;bottom:12px;min-height:96px;padding:20px;border-radius:18px;font:800 34px/1.2 Mukta,system-ui,sans-serif;text-align:center;background:#1f2622;display:grid;place-items:center}
+#cue.good{background:var(--go)}
+#cue.bad{background:var(--bad)}
+#bar{display:flex;gap:10px;padding:12px 16px max(12px,env(safe-area-inset-bottom));background:#000}
+#bar button{min-height:64px;border-radius:14px;border:0;font-size:20px;font-weight:800}
+#flip{width:64px;flex:none;background:#2a2a2a;color:#fff;display:grid;place-items:center}
+#quit{flex:1;background:#2a2a2a;color:#bbb}
+#done{flex:2;background:var(--go);color:#fff}
+#result{text-align:center}
+.badge{width:88px;height:88px;border-radius:50%;margin:24px auto 8px;display:grid;place-items:center;font-size:48px;color:#fff;background:var(--go)}
+.badge.star{background:var(--sun)}
+.res{font-size:120px;font-weight:800;line-height:1;color:var(--go)}
+.res small{font-size:32px}
+.stars{font-size:44px;letter-spacing:6px;color:var(--sun)}
+.stars i{font-style:normal;color:var(--line)}
+.up{background:var(--sun);color:#17201b;border-radius:16px;padding:16px;margin:16px 0;font-size:20px;font-weight:800}
 </style>
 </head>
 <body>
 <div id="home" class="wrap">
-  <h1>Home Coach</h1>
-  <p class="soft">Who is exercising?</p>
-  <div id="people" class="row" style="margin:8px 0"></div>
+  <h1 id="hello"></h1>
+  <div id="people" class="who"></div>
+  <div id="today" class="today"></div>
   <div id="week" class="week"></div>
+  <p id="weekcap" class="soft" style="margin-top:6px;font-size:17px"></p>
+  <h2 id="h-all"></h2>
   <div id="list"></div>
-  <h2>Settings</h2>
-  <div class="row">
-    <span class="soft">Voice</span>
-    <button id="lang-en">English</button><button id="lang-hi">हिंदी</button>
-    <button id="rename">Rename person</button>
-  </div>
-  <h2>History</h2>
-  <table class="hist"><tbody id="hist"></tbody></table>
-  <p class="soft" style="margin-top:20px">Stop if anything hurts or you feel dizzy. Video stays on this phone.</p>
+  <h2 id="h-hist"></h2>
+  <div id="hist"></div>
+  <details>
+    <summary id="h-set"></summary>
+    <p class="soft" id="l-lang"></p>
+    <div class="row"><button class="btn" id="lang-en">English</button><button class="btn" id="lang-hi">हिंदी</button></div>
+    <p class="soft" id="novoice" hidden></p>
+    <p class="soft" id="l-name"></p>
+    <form class="row" id="nameform"><input id="nameinput" maxlength="20" autocomplete="off"><button class="btn" id="namesave"></button></form>
+  </details>
+  <p class="soft" id="safety" style="margin-top:24px"></p>
 </div>
+
+<div id="place" class="wrap place" hidden></div>
 
 <div id="cam" hidden>
   <div id="stage">
     <video id="vid" playsinline muted class="mirror"></video>
     <canvas id="cv" class="mirror"></canvas>
-    <div id="hud"><div style="max-width:calc(100% - 130px)"><div id="name" style="font-weight:700;font-size:20px"></div><div id="tip" style="font-size:15px"></div></div><div id="count">0<small>/0</small></div></div>
-    <div id="cue">Loading…</div>
+    <div id="hud"><div><div id="name"></div><div id="tip"></div></div><div id="count"></div></div>
+    <div id="cd" hidden></div>
+    <div id="cue"></div>
   </div>
-  <div id="bar"><button id="flip">Flip camera</button><button id="quit">Cancel</button><button id="done">Done</button></div>
+  <div id="bar"><button id="flip" aria-label="Flip camera"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8M4 4v4h4M4 13a8 8 0 0 0 14.3 4.9L20 16M20 20v-4h-4"/></svg></button><button id="quit"></button><button id="done"></button></div>
 </div>
 
 <div id="result" class="wrap" hidden></div>
@@ -79,90 +123,140 @@ button.big{width:100%;font-size:20px;font-weight:700;background:var(--go);color:
 <script type="module">
 import {PoseLandmarker,FilesetResolver} from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs";
 const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>"&#"+c.charCodeAt(0)+";");
 
-// Angle at b (degrees) between a-b-c; x scaled by aspect so angles match the real body.
+// ---------- words (UI + voice) ----------
+const T={
+ en:{hello:n=>`Namaste, ${n}`,today:"Today",start:"Start",allDone:"All done today. Well done!",again:"Do one more",week:n=>`${n} day${n==1?"":"s"} this week`,all:"All exercises",level:"Level",reps:"reps",hist:"History",noHist:"No workouts yet. Tap Start above.",set:"⚙ Settings",lang:"Language and voice",name:"Name of the selected person",save:"Save",novoice:"No Hindi voice on this phone. Install it in phone Settings → Text-to-speech.",safety:"Stop if anything hurts or you feel dizzy. The video stays on this phone.",ready:"I'm ready",back:"Back",cancel:"Cancel",done:"Done",steps:"3 big steps",side:"Put the phone on the floor against a wall. Stand 3 big steps back, side-on to the phone.",front:"Put the phone on the floor against a wall. Stand 3 big steps back, facing the phone.",loading:"Getting ready…",fail:"Camera did not start: ",ofGood:"good form",levelUp:"Level up! Next time:",hit:"Target done. Get 3 stars to level up.",next:"Next time, same target. You can do it.",finish:"Done ✓",
+  cue:{low:"Sit a bit lower",chest:"Keep your chest up",straight:"Keep your body straight",bend:"Bend your arms more",arms:"Straighten your arms",even:"Raise both arms evenly",higher:"Arms higher",knee:"Lift your knee higher",tall:"Stand tall",good:"Good",body:"Step back so your whole body shows",go:"Start",fin:"Great, target done"}},
+ hi:{hello:n=>`नमस्ते, ${n}`,today:"आज",start:"शुरू करें",allDone:"आज का सब पूरा। शाबाश!",again:"एक और करें",week:n=>`इस हफ़्ते ${n} दिन`,all:"सभी व्यायाम",level:"लेवल",reps:"बार",hist:"इतिहास",noHist:"अभी कोई व्यायाम नहीं। ऊपर शुरू करें दबाएँ।",set:"⚙ सेटिंग",lang:"भाषा और आवाज़",name:"चुने गए व्यक्ति का नाम",save:"सेव",novoice:"इस फ़ोन में हिंदी आवाज़ नहीं है। फ़ोन सेटिंग → Text-to-speech में डालें।",safety:"दर्द या चक्कर हो तो तुरंत रुकें। वीडियो इसी फ़ोन में रहता है।",ready:"मैं तैयार हूँ",back:"वापस",cancel:"रोकें",done:"हो गया",steps:"3 बड़े कदम",side:"फ़ोन को दीवार के सहारे ज़मीन पर रखें। 3 बड़े कदम पीछे, फ़ोन की ओर बगल से खड़े हों।",front:"फ़ोन को दीवार के सहारे ज़मीन पर रखें। 3 बड़े कदम पीछे, फ़ोन की ओर मुँह करके खड़े हों।",loading:"तैयारी हो रही है…",fail:"कैमरा शुरू नहीं हुआ: ",ofGood:"सही तरीके से",levelUp:"अगला लेवल! अगली बार:",hit:"लक्ष्य पूरा। अगले लेवल के लिए 3 सितारे लाएँ।",next:"अगली बार वही लक्ष्य। आप कर सकते हैं।",finish:"हो गया ✓",
+  cue:{low:"थोड़ा और नीचे बैठिए",chest:"सीना ऊपर रखिए",straight:"शरीर सीधा रखिए",bend:"बाहें और मोड़िए",arms:"बाहें सीधी रखिए",even:"दोनों हाथ बराबर उठाइए",higher:"हाथ और ऊपर",knee:"घुटना और ऊपर उठाइए",tall:"सीधे खड़े रहिए",good:"बढ़िया",body:"थोड़ा पीछे जाइए, पूरा शरीर दिखना चाहिए",go:"शुरू",fin:"शाबाश, लक्ष्य पूरा"}}
+};
+const DAYS={en:["S","M","T","W","T","F","S"],hi:["र","सो","मं","बु","गु","शु","श"]};
+
+// ---------- stick figures (72x72) ----------
+const PROP={squat:`<path class="prop" d="M20 26V60M20 44H36M24 44V60M34 44V60"/>`,push:`<path class="prop" d="M60 6V66"/>`,raise:"",march:""};
+const BODY={
+ squat:`<circle class="hd" cx="41" cy="14" r="6"/><path d="M39 21L31 40L46 42V60M37 27L52 31"/>`,
+ push:`<circle class="hd" cx="46" cy="16" r="6"/><path d="M43 23L24 62M41 27L50 34L60 30"/>`,
+ raise:`<circle class="hd" cx="36" cy="13" r="6"/><path d="M36 20V42L28 62M36 42L44 62M36 25L22 7M36 25L50 7"/>`,
+ march:`<circle class="hd" cx="36" cy="12" r="6"/><path d="M36 19V62M36 40H51V57M36 25L27 37M36 25L45 35"/>`
+};
+const fig=id=>`<svg class="fig" viewBox="0 0 72 72" width="72" height="72" aria-hidden="true">${PROP[id]}${BODY[id]}</svg>`;
+
+// ---------- geometry ----------
 let AR=1;
 const ang=(a,b,c)=>{const v1=[(a.x-b.x)*AR,a.y-b.y],v2=[(c.x-b.x)*AR,c.y-b.y];const d=(v1[0]*v2[0]+v1[1]*v2[1])/(Math.hypot(...v1)*Math.hypot(...v2)||1);return Math.acos(Math.max(-1,Math.min(1,d)))*180/Math.PI};
-// Lean of the shoulder-hip line from vertical.
+// 3D angle on world landmarks (metres): works whichever way the person faces.
+const ang3=(a,b,c)=>{const u=[a.x-b.x,a.y-b.y,a.z-b.z],v=[c.x-b.x,c.y-b.y,c.z-b.z];const d=(u[0]*v[0]+u[1]*v[1]+u[2]*v[2])/(Math.hypot(...u)*Math.hypot(...v)||1);return Math.acos(Math.max(-1,Math.min(1,d)))*180/Math.PI};
 const lean=(s,h)=>Math.abs(Math.atan2((s.x-h.x)*AR,h.y-s.y)*180/Math.PI);
-// Pick the side the camera sees best (side views hide one side).
-const side=(lm,L,R)=>L.reduce((a,i)=>a+(lm[i].visibility??1),0)>=R.reduce((a,i)=>a+(lm[i].visibility??1),0)?L.map(i=>lm[i]):R.map(i=>lm[i]);
-const vis=(lm,ids)=>ids.every(i=>(lm[i].visibility??1)>.5);
+// Pick the side facing the camera; right landmark = left + 1.
+const side=(lm,Ls)=>{const Rs=Ls.map(i=>i+1),v=a=>a.reduce((s,i)=>s+(lm[i].visibility??1),0);return(v(Ls)>=v(Rs)?Ls:Rs).map(i=>lm[i])};
+// Visible = confident AND inside the frame (visibility can be high for off-screen points).
+const ok=p=>(p.visibility??1)>.5&&p.x>-.02&&p.x<1.02&&p.y>-.02&&p.y<1.02;
+const vis=(lm,ex)=>ex.need.every(i=>ok(lm[i]))||(ex.sideOn&&ex.need.every(i=>ok(lm[i+1])));
 
-const T={
- en:{low:"Go a bit lower",chest:"Keep your chest up",straight:"Keep your body straight",bend:"Bend your arms more",arms:"Straighten your arms",even:"Raise both arms evenly",knee:"Lift your knee higher",tall:"Stand tall",good:"Good",body:"Step back so your whole body shows",start:"Start when ready",level:"Level up!"},
- hi:{low:"थोड़ा और नीचे जाइए",chest:"सीना ऊपर रखिए",straight:"शरीर सीधा रखिए",bend:"बाहें और मोड़िए",arms:"बाहें सीधी रखिए",even:"दोनों हाथ बराबर उठाइए",knee:"घुटना और ऊपर उठाइए",tall:"सीधे खड़े रहिए",good:"बढ़िया",body:"थोड़ा पीछे जाइए, पूरा शरीर दिखना चाहिए",start:"तैयार हों तो शुरू कीजिए",level:"अगला लेवल!"}
-};
-
-// rest/act: thresholds on the tracked angle. A rep = rest -> active -> rest.
-// low=true means the angle drops when active (squat), false means it rises (arm raise).
+// ---------- exercises ----------
+// A rep = leave rest, pass `act` (counted), come back to rest. Not reaching `ideal` = counted but flagged with `endCue`.
+// low=true: the angle drops during the move (squat); false: it rises (arm raise).
 const EX=[
- {id:"squat",name:"Chair squat",need:[23,25,27],tip:"Side-on to the camera. Chair behind you. Sit down slowly, stand up.",
-  levels:[["Sit to stand, hands on knees",6],["Sit to stand",8],["Sit to stand",10],["Chair tap, don't sit",10],["Chair tap, don't sit",12],["Chair tap, slow down",15]],
-  low:true,rest:160,act:115,
-  metric:lm=>{const[h,k,a]=side(lm,[23,25,27],[24,26,28]);return ang(h,k,a)},
-  live:lm=>{const[s,h]=side(lm,[11,23],[12,24]);return lean(s,h)>50?"chest":null},
-  end:x=>x>125?"low":null},
- {id:"push",name:"Wall push-up",need:[11,13,15,23,27],tip:"Side-on. Hands on the wall at shoulder height, feet back.",
-  levels:[["Wall push-up",6],["Wall push-up",10],["Wall push-up, feet further back",10],["Kitchen counter push-up",8],["Kitchen counter push-up",12],["Knee push-up on the floor",8]],
-  low:true,rest:150,act:105,
-  metric:lm=>{const[s,e,w]=side(lm,[11,13,15],[12,14,16]);return ang(s,e,w)},
-  live:lm=>{const[s,h,a]=side(lm,[11,23,27],[12,24,28]);return ang(s,h,a)<155?"straight":null},
-  end:x=>x>120?"bend":null},
- {id:"raise",name:"Arm raise",need:[11,12,13,14,15,16,23,24],tip:"Face the camera. Raise both arms out and up over your head.",
-  levels:[["Arm raise",8],["Arm raise",12],["Arm raise",15],["Arm raise, hold 2 s at top",10],["Holding water bottles",10],["Holding water bottles",15]],
-  low:false,rest:45,act:150,
+ {id:"squat",view:"side",sideOn:true,need:[11,23,25,27],en:"Chair squat",hi:"कुर्सी स्क्वाट",
+  tip:{en:"Chair behind you. Sit down slowly, stand up.",hi:"पीछे कुर्सी रखें। धीरे बैठें, फिर खड़े हों।"},
+  levels:[["Sit to stand, hands on knees","घुटनों पर हाथ रखकर उठना",6],["Sit to stand","बैठकर उठना",8],["Sit to stand","बैठकर उठना",10],["Chair tap, don't sit","कुर्सी छूकर उठना",10],["Chair tap, don't sit","कुर्सी छूकर उठना",12],["Chair tap, slow","धीरे-धीरे कुर्सी छूना",15]],
+  low:true,rest:155,act:130,ideal:115,endCue:"low",
+  metric:lm=>{const[h,k,a]=side(lm,[23,25,27]);return ang(h,k,a)},
+  // Standing up from a chair needs a forward lean; only a big hunch is wrong.
+  live:lm=>{const[s,h]=side(lm,[11,23]);return lean(s,h)>65?"chest":null}},
+ {id:"push",view:"side",sideOn:true,need:[11,13,15,23,27],en:"Wall push-up",hi:"दीवार पुश-अप",
+  tip:{en:"Hands on the wall at shoulder height, feet back.",hi:"हाथ दीवार पर कंधे की ऊँचाई पर, पैर पीछे।"},
+  levels:[["Wall push-up","दीवार पुश-अप",6],["Wall push-up","दीवार पुश-अप",10],["Feet further back","पैर और पीछे",10],["Kitchen counter","किचन स्लैब पर",8],["Kitchen counter","किचन स्लैब पर",12],["Knee push-up on floor","घुटनों पर पुश-अप",8]],
+  low:true,rest:150,act:125,ideal:115,endCue:"bend",
+  metric:lm=>{const[s,e,w]=side(lm,[11,13,15]);return ang(s,e,w)},
+  live:lm=>{const[s,h,a]=side(lm,[11,23,27]);return ang(s,h,a)<155?"straight":null}},
+ {id:"raise",view:"front",need:[11,12,13,14,15,16,23,24],en:"Arm raise",hi:"हाथ ऊपर उठाना",
+  tip:{en:"Raise both arms out and up over your head.",hi:"दोनों हाथ बगल से सिर के ऊपर तक उठाएँ।"},
+  levels:[["Arm raise","हाथ ऊपर",8],["Arm raise","हाथ ऊपर",12],["Arm raise","हाथ ऊपर",15],["Hold 2 s at the top","ऊपर 2 सेकंड रुकें",10],["Holding water bottles","पानी की बोतल लेकर",10],["Holding water bottles","पानी की बोतल लेकर",15]],
+  // Stiff shoulders are common at this age: count at 130, ask for 150.
+  low:false,rest:50,act:130,ideal:150,endCue:"higher",
   metric:lm=>Math.min(ang(lm[23],lm[11],lm[15]),ang(lm[24],lm[12],lm[16])),
-  live:lm=>{const l=ang(lm[23],lm[11],lm[15]),r=ang(lm[24],lm[12],lm[16]);if(Math.max(l,r)>70&&Math.abs(l-r)>30)return"even";if(Math.max(l,r)>90&&Math.min(ang(lm[11],lm[13],lm[15]),ang(lm[12],lm[14],lm[16]))<140)return"arms";return null},
-  end:()=>null},
- {id:"march",name:"Knee raise march",need:[11,23,25,24,26],tip:"Side-on or facing. March on the spot, lift each knee up. Hold a chair if needed.",
-  levels:[["Holding a chair",10],["Holding a chair",16],["No chair",16],["No chair",24],["Hold each knee up 1 s",20],["Faster march",30]],
-  low:true,rest:160,act:125,
-  metric:lm=>Math.min(ang(lm[11],lm[23],lm[25]),ang(lm[12],lm[24],lm[26])),
-  live:lm=>lean(lm[11],lm[23])>25?"tall":null,
-  end:x=>x>110?"knee":null}
+  live:lm=>{const l=ang(lm[23],lm[11],lm[15]),r=ang(lm[24],lm[12],lm[16]);if(Math.max(l,r)>70&&Math.abs(l-r)>30)return"even";if(Math.max(l,r)>90&&Math.min(ang(lm[11],lm[13],lm[15]),ang(lm[12],lm[14],lm[16]))<140)return"arms";return null}},
+ {id:"march",view:"side",sideOn:true,need:[11,23,25],en:"Knee raise march",hi:"घुटना उठाकर मार्च",
+  tip:{en:"March on the spot, lift each knee. Hold a chair if needed.",hi:"एक जगह मार्च करें, हर घुटना उठाएँ। ज़रूरत हो तो कुर्सी पकड़ें।"},
+  levels:[["Holding a chair","कुर्सी पकड़कर",10],["Holding a chair","कुर्सी पकड़कर",16],["No chair","बिना कुर्सी",16],["No chair","बिना कुर्सी",24],["Hold each knee up 1 s","घुटना 1 सेकंड रोकें",20],["Faster march","तेज़ मार्च",30]],
+  // ponytail: one state machine on the higher knee; fast marching can merge two lifts. Per-leg machines if level 6 undercounts.
+  low:true,rest:150,act:140,ideal:125,endCue:"knee",
+  metric:(lm,w)=>w?Math.min(ang3(w[11],w[23],w[25]),ang3(w[12],w[24],w[26])):Math.min(ang(lm[11],lm[23],lm[25]),ang(lm[12],lm[24],lm[26])),
+  live:lm=>lean(lm[11],lm[23])>25?"tall":null}
 ];
 
-// Storage: one record per person. localStorage can throw (private mode): the app still runs, just forgets.
+// ---------- storage ----------
 const KEY="homecoach1";
-let S;try{S=JSON.parse(localStorage.getItem(KEY))}catch{}
-S=S||{people:["Mom","Dad"],who:0,lang:"en",data:[{},{}]};
+let S=null;try{S=JSON.parse(localStorage.getItem(KEY))}catch{}
+if(!S||!Array.isArray(S.people)||!Array.isArray(S.data)||!T[S.lang])S={people:["Mom","Dad"],who:0,lang:"en",data:[{},{}]};
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch{}};
-const me=()=>{S.data[S.who]??={};return S.data[S.who]};
-const prog=id=>{const d=me();d[id]??={level:0,log:[]};return d[id]};
-const esc=s=>String(s).replace(/[&<>"']/g,c=>"&#"+c.charCodeAt(0)+";");
+navigator.storage?.persist?.().catch(()=>{});
+const L=()=>T[S.lang];
+const me=()=>S.data[S.who]??={};
+const prog=id=>me()[id]??={level:0,log:[]};
+const lvl=e=>{const p=prog(e.id),x=e.levels[Math.min(p.level,e.levels.length-1)];return{name:S.lang=="hi"?x[1]:x[0],reps:x[2],n:p.level+1}};
 // Local date, not UTC: a 5 a.m. IST workout belongs to today.
 const ymd=ms=>{const t=new Date(ms);t.setMinutes(t.getMinutes()-t.getTimezoneOffset());return t.toISOString().slice(0,10)};
 const today=()=>ymd(Date.now());
+const COLORS=["#f4c95d","#7cb7e8"];
+const stars=(g,r)=>!r?0:g/r>=.8?3:g/r>=.5?2:1;
 
+// ---------- voice ----------
+let hv=null;const loadVoices=()=>{try{hv=speechSynthesis.getVoices().find(v=>v.lang.toLowerCase().startsWith("hi"))||null}catch{}};
+loadVoices();try{speechSynthesis.addEventListener("voiceschanged",()=>{loadVoices();if(!$("home").hidden)home()})}catch{}
+let lastSay=0;
+function say(t,force){if(!force&&Date.now()-lastSay<3000)return;lastSay=Date.now();try{if(speechSynthesis.speaking)speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);if(S.lang=="hi"){u.lang="hi-IN";if(hv)u.voice=hv}else u.lang="en-IN";u.rate=.95;speechSynthesis.speak(u)}catch{}}
+function cue(k,cls){const t=L().cue[k]??k;$("cue").textContent=t;$("cue").className=cls||"";return t}
+
+// ---------- home ----------
+function show(id){for(const s of["home","place","cam","result"])$(s).hidden=s!=id;scrollTo(0,0)}
 function home(){
- $("home").hidden=false;$("cam").hidden=true;$("result").hidden=true;
- $("people").innerHTML=S.people.map((p,i)=>`<button data-p="${i}" class="${i==S.who?"on":""}">${esc(p)}</button>`).join("");
- $("lang-en").className=S.lang=="en"?"on":"";$("lang-hi").className=S.lang=="hi"?"on":"";
+ show("home");const t=L();document.documentElement.lang=S.lang;
+ $("hello").textContent=t.hello(S.people[S.who]);
+ $("people").innerHTML=S.people.map((p,i)=>`<button data-p="${i}" class="${i==S.who?"on":""}"><span class="av" style="background:${COLORS[i%2]}">${esc(p.slice(0,1).toUpperCase())}</span>${esc(p)}</button>`).join("");
  const all=EX.flatMap(e=>prog(e.id).log.map(l=>({...l,e})));
- const days=new Set(all.map(l=>l.d));
- $("week").innerHTML=[...Array(7)].map((_,i)=>{const t=new Date(Date.now()-(6-i)*864e5),k=ymd(t);return `<div class="day ${days.has(k)?"done":""}">${"SMTWTFS"[t.getDay()]}</div>`}).join("");
- $("list").innerHTML=EX.map(e=>{const p=prog(e.id),L=e.levels[Math.min(p.level,e.levels.length-1)],last=p.log.at(-1);
-  return `<button class="ex" data-e="${e.id}"><b>${e.name}</b><span class="lvl">${p.level+1}<small>level</small></span><span class="soft">${L[0]} · ${L[1]} reps${last?` · last ${last.reps} (${Math.round(last.good/Math.max(last.reps,1)*100)}% good)`:""}</span></button>`}).join("");
- $("hist").innerHTML=all.sort((a,b)=>b.t-a.t).slice(0,10).map(l=>`<tr><td>${l.d.slice(5)}</td><td>${l.e.name}</td><td>${l.reps} reps</td><td>${Math.round(l.good/Math.max(l.reps,1)*100)}% good</td></tr>`).join("")||`<tr><td class="soft">No workouts yet. Pick one above.</td></tr>`;
+ const doneToday=new Set(all.filter(l=>l.d==today()).map(l=>l.e.id));
+ const nxt=EX.find(e=>!doneToday.has(e.id)),pick=nxt||EX[0],pl=lvl(pick);
+ $("today").innerHTML=`<div class="row">${fig(pick.id)}<div><div class="lab">${nxt?t.today:t.allDone}</div><div class="what">${esc(pick[S.lang])}<br><span style="font-size:20px;font-weight:600">${pl.reps} ${t.reps}${pl.name==pick[S.lang]?"":" · "+esc(pl.name)}</span></div></div></div><button data-e="${pick.id}">${nxt?t.start:t.again}</button>`;
+ const days=new Set(all.map(l=>l.d));let n=0;
+ $("week").innerHTML=[...Array(7)].map((_,i)=>{const d=new Date(Date.now()-(6-i)*864e5),on=days.has(ymd(d));n+=on;return `<div class="day ${on?"done":""} ${i==6?"now":""}">${on?"✓":DAYS[S.lang][d.getDay()]}</div>`}).join("");
+ $("weekcap").textContent=t.week(n);
+ $("h-all").textContent=t.all;$("h-hist").textContent=t.hist;$("h-set").textContent=t.set;
+ $("list").innerHTML=EX.map(e=>{const l=lvl(e);return `<button class="ex" data-e="${e.id}">${fig(e.id)}<span><b>${esc(e[S.lang])}</b><span class="soft">${l.reps} ${t.reps}${l.name==e[S.lang]?"":" · "+esc(l.name)}</span></span><span class="pill">${t.level} ${l.n}</span></button>`}).join("");
+ const byDay={};for(const l of all.sort((a,b)=>b.t-a.t))(byDay[l.d]??=[]).push(l);
+ $("hist").innerHTML=Object.keys(byDay).slice(0,7).map(d=>`<div class="dcard"><b>${new Date(d+"T12:00").toLocaleDateString(S.lang=="hi"?"hi-IN":"en-IN",{weekday:"short",day:"numeric",month:"short"})}</b>${byDay[d].map(l=>`<div><span>${esc(l.e[S.lang])}</span><span>${l.reps} ${t.reps} <span class="st">${"★".repeat(stars(l.good,l.reps))}</span></span></div>`).join("")}</div>`).join("")||`<p class="soft">${t.noHist}</p>`;
+ $("lang-en").className="btn"+(S.lang=="en"?" on":"");$("lang-hi").className="btn"+(S.lang=="hi"?" on":"");
+ $("novoice").textContent=t.novoice;$("novoice").hidden=!(S.lang=="hi"&&!hv);
+ $("l-lang").textContent=t.lang;$("l-name").textContent=t.name;$("namesave").textContent=t.save;$("nameinput").value=S.people[S.who];
+ $("safety").textContent=t.safety;
 }
 $("people").onclick=e=>{const b=e.target.closest("[data-p]");if(b){S.who=+b.dataset.p;save();home()}};
 $("lang-en").onclick=()=>{S.lang="en";save();home()};
 $("lang-hi").onclick=()=>{S.lang="hi";save();home()};
-$("rename").onclick=()=>{const b=$("people").querySelector(".on");const n=window.prompt("New name",S.people[S.who]);if(n&&n.trim()){S.people[S.who]=n.trim().slice(0,20);save();home()}};
-$("list").onclick=e=>{const b=e.target.closest("[data-e]");if(b)start(EX.find(x=>x.id==b.dataset.e))};
+$("nameform").onsubmit=e=>{e.preventDefault();const n=$("nameinput").value.trim();if(n){S.people[S.who]=n.slice(0,20);save();home()}};
+$("home").addEventListener("click",e=>{const b=e.target.closest("[data-e]");if(b)place(EX.find(x=>x.id==b.dataset.e))});
 
-// Voice: speechSynthesis; at most one cue every 3 s so it doesn't nag.
-let lastSay=0;
-function say(t,force){if(!force&&Date.now()-lastSay<3000)return;lastSay=Date.now();try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=S.lang=="hi"?"hi-IN":"en-IN";u.rate=.95;speechSynthesis.speak(u)}catch{}}
-function cue(k,cls){const t=T[S.lang][k]||k;$("cue").textContent=t;$("cue").className=cls||"";return t}
+// ---------- placement guide ----------
+function place(ex){
+ const t=L();show("place");
+ $("place").innerHTML=`<h1>${esc(ex[S.lang])}</h1>
+ <svg viewBox="0 0 320 170" class="fig" aria-hidden="true"><path class="prop" d="M14 8V156H312"/><rect x="18" y="118" width="16" height="34" rx="3" transform="rotate(-14 26 152)" style="stroke:var(--ink);stroke-width:3"/><path d="M50 146H196" style="stroke:var(--soft);stroke-dasharray:3 12;stroke-width:4"/><text x="123" y="134" text-anchor="middle" style="fill:var(--soft);stroke:none;font:600 17px Mukta,sans-serif">${t.steps}</text><g transform="translate(206 62) scale(1.32)">${BODY[ex.id]}</g></svg>
+ <p>${ex.view=="side"?t.side:t.front}</p><button class="big" id="ready">${t.ready}</button><p style="margin-top:12px"><button class="btn" id="pback" style="width:100%">${t.back}</button></p>`;
+ $("ready").onclick=()=>start(ex);$("pback").onclick=home;
+}
 
-let landmarker,stream,facing="user",run=null;
+// ---------- camera + model ----------
+let landmarker=null,delegate="GPU",stream=null,facing="user",run=null,wl=null;
+const MODEL="https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task";
 async function getModel(){
  if(landmarker)return landmarker;
  const fs=await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm");
- const opts=d=>({baseOptions:{modelAssetPath:"https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task",delegate:d},runningMode:"VIDEO",numPoses:1});
- try{landmarker=await PoseLandmarker.createFromOptions(fs,opts("GPU"))}catch{landmarker=await PoseLandmarker.createFromOptions(fs,opts("CPU"))}
+ const mk=d=>PoseLandmarker.createFromOptions(fs,{baseOptions:{modelAssetPath:MODEL,delegate:d},runningMode:"VIDEO",numPoses:1});
+ try{landmarker=await mk(delegate)}catch{delegate="CPU";landmarker=await mk("CPU")}
  return landmarker;
 }
 async function openCam(){
@@ -171,75 +265,93 @@ async function openCam(){
  const v=$("vid");v.srcObject=stream;await v.play();
  v.classList.toggle("mirror",facing=="user");$("cv").classList.toggle("mirror",facing=="user");
 }
+// Keep the screen on: Android dims after ~30 s without a touch and the camera stops.
+async function wake(){try{wl=await navigator.wakeLock?.request("screen")}catch{wl=null}}
+document.addEventListener("visibilitychange",()=>{if(run&&document.visibilityState=="visible")wake()});
 async function start(ex){
- const p=prog(ex.id),L=ex.levels[Math.min(p.level,ex.levels.length-1)];
- $("home").hidden=true;$("cam").hidden=false;$("name").textContent=ex.name+" · "+L[0];$("tip").textContent=ex.tip;
- run={ex,target:L[1],reps:0,good:0,state:"rest",ext:null,bad:false,seen:false};
- $("count").innerHTML=`0<small>/${L[1]}</small>`;cue("Loading…");
- try{await Promise.all([getModel(),openCam()])}catch(err){cue("Camera or model failed: "+err.message,"bad");return}
- say(cue("start"),true);loop();
+ // iOS only speaks after a tap: unlock speech now, before any await.
+ try{speechSynthesis.speak(new SpeechSynthesisUtterance(""))}catch{}
+ const t=L(),l=lvl(ex);show("cam");
+ $("name").textContent=ex[S.lang]+" · "+l.name;$("tip").textContent=ex.tip[S.lang];$("tip").hidden=false;
+ $("quit").textContent=t.cancel;$("done").textContent=t.done;
+ const R=run={ex,target:l.reps,reps:0,good:0,state:"rest",ext:0,bad:false,liveN:0,lost:0,smooth:null,live:false,why:null};
+ $("count").innerHTML=`0<small>/${l.reps}</small>`;cue(t.loading);$("cd").hidden=true;
+ try{await Promise.all([getModel(),openCam()])}catch(err){if(run===R)cue(t.fail+err.message,"bad");return}
+ // Cancel tapped while loading: don't leave the camera on.
+ if(run!==R){stream?.getTracks().forEach(x=>x.stop());stream=null;return}
+ wake();tick();
+ for(const n of[3,2,1]){if(run!==R)return;$("cd").hidden=false;$("cd").textContent=n;say(String(n),true);await new Promise(r=>setTimeout(r,1000))}
+ if(run!==R)return;$("cd").hidden=true;R.live=true;say(cue("go"),true);
+ setTimeout(()=>{if(run===R)$("tip").hidden=true},6000);
 }
 const BONES=[[11,12],[11,13],[13,15],[12,14],[14,16],[11,23],[12,24],[23,24],[23,25],[25,27],[24,26],[26,28]];
 function draw(lm,color){
- const c=$("cv"),v=$("vid"),x=c.getContext("2d");c.width=v.videoWidth;c.height=v.videoHeight;
- // object-fit:contain on both keeps canvas and video aligned and the whole body in view.
+ const c=$("cv"),v=$("vid"),x=c.getContext("2d");
+ if(c.width!=v.videoWidth||c.height!=v.videoHeight){c.width=v.videoWidth;c.height=v.videoHeight}
  x.clearRect(0,0,c.width,c.height);if(!lm)return;
- x.lineWidth=6;x.strokeStyle=color;x.fillStyle="#fff";
+ x.lineWidth=7;x.lineCap="round";x.strokeStyle=color;x.fillStyle="#fff";
  for(const[a,b]of BONES){x.beginPath();x.moveTo(lm[a].x*c.width,lm[a].y*c.height);x.lineTo(lm[b].x*c.width,lm[b].y*c.height);x.stroke()}
  for(const i of[11,12,13,14,15,16,23,24,25,26,27,28]){x.beginPath();x.arc(lm[i].x*c.width,lm[i].y*c.height,6,0,7);x.fill()}
 }
-let smooth=null;
-function loop(){
- if(!run)return;
- const v=$("vid");
- if(v.readyState>=2){
+// One detection per new camera frame (requestVideoFrameCallback), rAF where unsupported.
+function tick(){
+ if(!run)return;const v=$("vid");
+ if(v.readyState>=2&&landmarker){
   AR=v.videoWidth/v.videoHeight;
-  const r=landmarker.detectForVideo(v,performance.now()),lm=r.landmarks?.[0];
-  step(lm);
- }
- requestAnimationFrame(loop);
-}
-// Rep state machine on a smoothed angle, with hysteresis between rest and act thresholds.
-function step(lm){
- const R=run,ex=R.ex;
- if(!lm||!vis(lm,ex.need)){draw(lm,"#888");if(R.state=="rest")say(cue("body"));smooth=null;return}
- const raw=ex.metric(lm);smooth=smooth==null?raw:smooth*.6+raw*.4;const m=smooth;
- const active=ex.low?m<ex.act:m>ex.act,rested=ex.low?m>ex.rest:m<ex.rest;
- const mid=ex.low?m<ex.rest-10:m>ex.rest+10;
- if(R.state=="rest"&&mid){R.state="move";R.ext=m;R.bad=false}
- if(R.state=="move"){
-  R.ext=ex.low?Math.min(R.ext,m):Math.max(R.ext,m);
-  const f=ex.live(lm);if(f){R.bad=true;say(cue(f,"bad"))}
-  if(rested){
-   const f2=ex.end(R.ext);
-   // A movement that never reached the active threshold is not a rep, but say why.
-   if(!(ex.low?R.ext<ex.act:R.ext>ex.act)){if(f2)say(cue(f2,"bad"));R.state="rest";return}
-   R.reps++;if(f2)R.bad=true;if(!R.bad)R.good++;
-   $("count").innerHTML=`${R.reps}<small>/${R.target}</small>`;
-   const t=R.bad?(f2?cue(f2,"bad"):$("cue").textContent):cue("good","good");
-   say(S.lang=="hi"?`${R.reps}`:`${R.reps}`+(R.bad?"":". "+t),true);
-   R.state="rest";
-   if(R.reps==R.target)setTimeout(()=>say(S.lang=="hi"?"शाबाश, पूरा हुआ":"Great, target done",true),900);
+  try{const r=landmarker.detectForVideo(v,performance.now());step(r.landmarks?.[0],r.worldLandmarks?.[0])}
+  catch(e){
+   // GPU delegate can die mid-session on some phones: rebuild on CPU once.
+   if(delegate=="GPU"){delegate="CPU";const old=landmarker;landmarker=null;try{old.close()}catch{}getModel().catch(()=>cue(L().fail+e.message,"bad"))}
   }
  }
- draw(lm,R.state=="move"&&R.bad?"#e0611a":"#0a8f5a");
+ v.requestVideoFrameCallback?v.requestVideoFrameCallback(tick):requestAnimationFrame(tick);
 }
-function stopCam(){run=null;stream?.getTracks().forEach(t=>t.stop());stream=null;smooth=null;try{speechSynthesis.cancel()}catch{}}
+function step(lm,w){
+ const R=run,ex=R.ex;
+ if(!lm||!vis(lm,ex)){
+  draw(lm,"#888");
+  // Only react after ~20 lost frames, so one bad frame doesn't reset or nag.
+  if(++R.lost>=20){R.smooth=null;if(R.state=="move")R.state="rest";if(R.live)say(cue("body"))}
+  return;
+ }
+ R.lost=0;
+ const raw=ex.metric(lm,w);R.smooth=R.smooth==null?raw:R.smooth*.6+raw*.4;const m=R.smooth;
+ draw(lm,R.state=="move"&&R.bad?"#d9480f":"#0a8f5a");
+ if(!R.live)return;
+ const past=(a,b)=>ex.low?a<b:a>b;
+ if(R.state=="rest"&&past(m,ex.low?ex.rest-8:ex.rest+8)){R.state="move";R.ext=m;R.bad=false;R.liveN=0;R.why=null}
+ if(R.state!="move")return;
+ R.ext=ex.low?Math.min(R.ext,m):Math.max(R.ext,m);
+ // A form fault must hold 5 frames before it marks the rep.
+ const f=ex.live(lm);R.liveN=f?R.liveN+1:0;
+ if(R.liveN>=5&&!R.bad){R.bad=true;R.why=f;say(cue(f,"bad"))}
+ if(!past(ex.rest,m))return; // not back at rest yet
+ R.state="rest";
+ if(!past(R.ext,ex.act)){say(cue(ex.endCue,"bad"));return} // too small to count
+ if(!past(R.ext,ex.ideal)){R.bad=true;R.why??=ex.endCue}
+ R.reps++;if(!R.bad)R.good++;
+ $("count").innerHTML=`${R.reps}<small>/${R.target}</small>`;
+ cue(R.bad?R.why:"good",R.bad?"bad":"good");
+ say(R.reps+". "+L().cue[R.bad?R.why:"good"],true);
+ if(R.reps==R.target)setTimeout(()=>{if(run===R)say(L().cue.fin,true)},1800);
+}
+function stopCam(){run=null;stream?.getTracks().forEach(t=>t.stop());stream=null;try{wl?.release()}catch{}wl=null;try{speechSynthesis.cancel()}catch{}}
 $("quit").onclick=()=>{stopCam();home()};
-$("flip").onclick=async()=>{facing=facing=="user"?"environment":"user";try{await openCam()}catch(e){cue(e.message,"bad")}};
+$("flip").onclick=async()=>{facing=facing=="user"?"environment":"user";try{await openCam()}catch(e){cue(L().fail+e.message,"bad")}};
 $("done").onclick=()=>{
  const R=run;if(!R)return;stopCam();
- const p=prog(R.ex.id);let up=false;
+ const t=L(),p=prog(R.ex.id),st=stars(R.good,R.reps);let up=false;
  if(R.reps>0){p.log.push({d:today(),t:Date.now(),reps:R.reps,good:R.good,level:p.level});
-  // ponytail: one good session moves you up; make it two in a row if parents level too fast.
-  if(R.reps>=R.target&&R.good/R.reps>=.8&&p.level<R.ex.levels.length-1){p.level++;up=true}
+  // ponytail: one 3-star session at target levels up; make it two in a row if they level too fast.
+  if(R.reps>=R.target&&st==3&&p.level<R.ex.levels.length-1){p.level++;up=true}
   save()}
- const pct=R.reps?Math.round(R.good/R.reps*100):0,N=R.ex.levels[p.level];
- $("cam").hidden=true;$("result").hidden=false;
- $("result").innerHTML=`<h1>${R.ex.name}</h1><p class="res">${R.reps}<small style="font-size:24px"> / ${R.target} reps</small></p><p>${pct}% with good form</p>
- ${up?`<div class="up">${T[S.lang].level} Next time: ${esc(N[0])}, ${N[1]} reps</div>`:R.reps>=R.target?`<p class="soft">Target hit. Get 80% good form to level up.</p>`:`<p class="soft">Next time: ${R.target} reps. You can do it.</p>`}
- <p style="margin-top:20px"><button class="big" id="back">Back</button></p>`;
- if(up)say(T[S.lang].level,true);
+ const N=lvl(R.ex);show("result");
+ $("result").innerHTML=`<div class="badge ${up?"star":""}">${up?"★":"✓"}</div><h1>${esc(R.ex[S.lang])}</h1>
+ <p class="res">${R.reps}<small> / ${R.target} ${t.reps}</small></p>
+ <p class="stars">${"★".repeat(st)}<i>${"★".repeat(3-st)}</i></p><p class="soft">${R.reps?Math.round(R.good/R.reps*100):0}% ${t.ofGood}</p>
+ ${up?`<div class="up">${t.levelUp} ${esc(N.name)}, ${N.reps} ${t.reps}</div>`:`<p style="margin:16px 0">${R.reps>=R.target?t.hit:t.next}</p>`}
+ <button class="big" id="back">${t.finish}</button>`;
+ if(up)say(t.levelUp,true);
  $("back").onclick=home;
 };
 home();
