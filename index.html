@@ -33,6 +33,11 @@ button{font:inherit;color:inherit;cursor:pointer}
 .chart{display:grid;grid-template-columns:repeat(14,minmax(0,1fr));gap:4px;align-items:end;height:110px;margin-top:12px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px 10px 0}
 .chart div{display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;font-size:12px;color:var(--soft)}
 .chart i{display:block;width:100%;background:var(--go);border-radius:4px 4px 0 0;min-height:2px}
+.chart i.h{opacity:.45}
+.goal{display:flex;align-items:center;gap:6px;margin-top:12px;font-size:17px}
+.goal i{width:18px;height:18px;border-radius:50%;border:2px solid #fff}
+.goal i.on{background:#fff}
+.goal span{margin-left:4px}
 .chart i.z{background:var(--empty)}
 .chart div.now span{color:var(--ink);font-weight:800}
 .ex{display:grid;grid-template-columns:60px 1fr auto auto;gap:4px 10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:10px 10px 10px 12px;margin:10px 0}
@@ -112,8 +117,6 @@ code{font-size:16px;word-break:break-all;background:var(--empty);padding:2px 6px
     <p class="soft" id="l-lang" style="margin-top:16px"></p>
     <div class="row"><button class="btn" id="lang-en">English</button><button class="btn" id="lang-hi">हिंदी</button></div>
     <p class="soft" id="novoice" hidden></p>
-    <p class="soft" id="l-links" style="margin-top:16px"></p>
-    <p id="links"></p>
   </details>
   <p class="soft" id="safety" style="margin-top:24px"></p>
 </div>
@@ -138,15 +141,14 @@ import {PoseLandmarker,FilesetResolver} from "https://cdn.jsdelivr.net/npm/@medi
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>"&#"+c.charCodeAt(0)+";");
 
-// ---------- who: each person opens their own link (?u=Mom), so data never mixes ----------
-const U=(new URLSearchParams(location.search).get("u")||"").trim().slice(0,20);
-const KEY="homecoach2"+(U?":"+U.toLowerCase():"");
+// One shared link; old ?u= links still open this page and the param is ignored.
+const KEY="homecoach2",GOAL=2; // GOAL: workouts a day (Mom + Dad taking turns)
 
 // ---------- words (UI + voice) ----------
 const T={
- en:{hello:n=>n?`Namaste, ${n}`:"Namaste",today:"Today's workout",min:(n,k)=>`About ${n} min · ${k} sets`,start:"Start workout",doneToday:"Done today. Well done!",again:"Do it again",prog:"Progress",streak:"day streak",week:"days this week",mins:"min this week",chart:"Minutes per day, last 14 days",all:"Exercises",allcap:"Tap In/Out to choose what goes in your workout. ▶ practises one on its own.",inW:"In",outW:"Out",level:"Level",reps:"reps",secs:"s",best:"best",hist:"History",noHist:"No workouts yet. Tap Start above.",set:"⚙ Settings",rounds:"Rounds of your exercises",lang:"Language and voice",novoice:"No Hindi voice on this phone. Install it in phone Settings → Text-to-speech.",links:"Each person opens their own link, so progress stays separate. Bookmark yours:",safety:"Stop if anything hurts or you feel dizzy. The video stays on this phone.",ready:"I'm ready",back:"Back",end:"End",next:"Next ▶",last:"Finish ✓",go:"Go now",loading:"Getting ready…",fail:"Camera did not start: ",place:"Put the phone on the floor against a wall and stand 3 big steps back. No timer: tap Next when you're done with each exercise.",steps:"3 big steps",upNext:"Up next",stepOf:(i,n)=>`${i} of ${n}`,view:{side:"Turn side-on to the phone",front:"Face the phone",floor:"Get on the floor, side-on to the phone"},finished:"Workout done!",short:"Good effort. Every bit counts.",levelUp:"Level up!",keep:"Hit the target with 3 stars to level up.",finish:"Done ✓",
+ en:{hello:"Namaste",today:"Today's workout",todayN:n=>`${n} of ${GOAL} workouts done today`,nToday:"workouts today",nWeek:"workouts this week",practice:"Practice",min:(n,k)=>`About ${n} min · ${k} sets`,start:"Start workout",doneToday:"Both workouts done today!",again:"Start another workout",prog:"Progress",streak:"day streak",chart:`Workouts per day, last 14 days. Goal: ${GOAL} a day`,all:"Exercises",allcap:"Tap In/Out to choose what goes in your workout. ▶ practises one on its own.",inW:"In",outW:"Out",level:"Level",reps:"reps",secs:"s",best:"best",hist:"History",noHist:"No workouts yet. Tap Start above.",set:"⚙ Settings",rounds:"Rounds of your exercises",lang:"Language and voice",novoice:"No Hindi voice on this phone. Install it in phone Settings → Text-to-speech.",safety:"Stop if anything hurts or you feel dizzy. The video stays on this phone.",ready:"I'm ready",back:"Back",end:"End",next:"Next ▶",last:"Finish ✓",go:"Go now",loading:"Getting ready…",fail:"Camera did not start: ",place:"Put the phone on the floor against a wall and stand 3 big steps back. No timer: tap Next when you're done with each exercise.",steps:"3 big steps",upNext:"Up next",stepOf:(i,n)=>`${i} of ${n}`,view:{side:"Turn side-on to the phone",front:"Face the phone",floor:"Get on the floor, side-on to the phone"},finished:"Workout done!",short:"Good effort. Every bit counts.",levelUp:"Level up!",keep:"Hit the target with 3 stars to level up.",finish:"Done ✓",
   cue:{low:"Sit a bit lower",chest:"Keep your chest up",straight:"Keep your body straight",bend:"Bend your arms more",higher:"Arms higher",knee:"Lift your knee higher",tall:"Stand tall",lunge:"Bend both knees more",kick:"Heels up to your bottom",climb:"Knee closer to your chest",hinge:"Bend forward more",situp:"Come up higher",wall:"Sit lower, thighs flat",hold:"Hold it",good:"Good",body:"Step back so your whole body shows",go:"Go",fin:"Target done. Keep going, or tap Next"}},
- hi:{hello:n=>n?`नमस्ते, ${n}`:"नमस्ते",today:"आज का व्यायाम",min:(n,k)=>`करीब ${n} मिनट · ${k} सेट`,start:"व्यायाम शुरू करें",doneToday:"आज का पूरा। शाबाश!",again:"फिर से करें",prog:"प्रगति",streak:"दिन लगातार",week:"दिन इस हफ़्ते",mins:"मिनट इस हफ़्ते",chart:"हर दिन के मिनट, पिछले 14 दिन",all:"व्यायाम",allcap:"अंदर/बाहर दबाकर चुनें कि व्यायाम में क्या हो। ▶ से अकेले अभ्यास करें।",inW:"अंदर",outW:"बाहर",level:"लेवल",reps:"बार",secs:"सेकंड",best:"सबसे अच्छा",hist:"इतिहास",noHist:"अभी कोई व्यायाम नहीं। ऊपर शुरू करें दबाएँ।",set:"⚙ सेटिंग",rounds:"कितने राउंड",lang:"भाषा और आवाज़",novoice:"इस फ़ोन में हिंदी आवाज़ नहीं है। फ़ोन सेटिंग → Text-to-speech में डालें।",links:"हर व्यक्ति अपना लिंक खोले, ताकि प्रगति अलग रहे। अपना लिंक बुकमार्क करें:",safety:"दर्द या चक्कर हो तो तुरंत रुकें। वीडियो इसी फ़ोन में रहता है।",ready:"मैं तैयार हूँ",back:"वापस",end:"बंद करें",next:"अगला ▶",last:"पूरा ✓",go:"अभी शुरू",loading:"तैयारी हो रही है…",fail:"कैमरा शुरू नहीं हुआ: ",place:"फ़ोन को दीवार के सहारे ज़मीन पर रखें और 3 बड़े कदम पीछे खड़े हों। कोई टाइमर नहीं: हर व्यायाम के बाद अगला दबाएँ।",steps:"3 बड़े कदम",upNext:"अगला",stepOf:(i,n)=>`${n} में से ${i}`,view:{side:"फ़ोन की ओर बगल से खड़े हों",front:"फ़ोन की ओर मुँह करें",floor:"ज़मीन पर, फ़ोन की ओर बगल से"},finished:"व्यायाम पूरा!",short:"अच्छी कोशिश। हर थोड़ा मायने रखता है।",levelUp:"अगला लेवल!",keep:"अगले लेवल के लिए लक्ष्य 3 सितारों से पूरा करें।",finish:"हो गया ✓",
+ hi:{hello:"नमस्ते",today:"आज का व्यायाम",todayN:n=>`आज ${GOAL} में से ${n} व्यायाम पूरे`,nToday:"आज के व्यायाम",nWeek:"इस हफ़्ते के व्यायाम",practice:"अभ्यास",min:(n,k)=>`करीब ${n} मिनट · ${k} सेट`,start:"व्यायाम शुरू करें",doneToday:"आज के दोनों व्यायाम पूरे!",again:"एक और व्यायाम शुरू करें",prog:"प्रगति",streak:"दिन लगातार",chart:`हर दिन के व्यायाम, पिछले 14 दिन। लक्ष्य: रोज़ ${GOAL}`,all:"व्यायाम",allcap:"अंदर/बाहर दबाकर चुनें कि व्यायाम में क्या हो। ▶ से अकेले अभ्यास करें।",inW:"अंदर",outW:"बाहर",level:"लेवल",reps:"बार",secs:"सेकंड",best:"सबसे अच्छा",hist:"इतिहास",noHist:"अभी कोई व्यायाम नहीं। ऊपर शुरू करें दबाएँ।",set:"⚙ सेटिंग",rounds:"कितने राउंड",lang:"भाषा और आवाज़",novoice:"इस फ़ोन में हिंदी आवाज़ नहीं है। फ़ोन सेटिंग → Text-to-speech में डालें।",safety:"दर्द या चक्कर हो तो तुरंत रुकें। वीडियो इसी फ़ोन में रहता है।",ready:"मैं तैयार हूँ",back:"वापस",end:"बंद करें",next:"अगला ▶",last:"पूरा ✓",go:"अभी शुरू",loading:"तैयारी हो रही है…",fail:"कैमरा शुरू नहीं हुआ: ",place:"फ़ोन को दीवार के सहारे ज़मीन पर रखें और 3 बड़े कदम पीछे खड़े हों। कोई टाइमर नहीं: हर व्यायाम के बाद अगला दबाएँ।",steps:"3 बड़े कदम",upNext:"अगला",stepOf:(i,n)=>`${n} में से ${i}`,view:{side:"फ़ोन की ओर बगल से खड़े हों",front:"फ़ोन की ओर मुँह करें",floor:"ज़मीन पर, फ़ोन की ओर बगल से"},finished:"व्यायाम पूरा!",short:"अच्छी कोशिश। हर थोड़ा मायने रखता है।",levelUp:"अगला लेवल!",keep:"अगले लेवल के लिए लक्ष्य 3 सितारों से पूरा करें।",finish:"हो गया ✓",
   cue:{low:"थोड़ा और नीचे बैठिए",chest:"सीना ऊपर रखिए",straight:"शरीर सीधा रखिए",bend:"बाहें और मोड़िए",higher:"हाथ और ऊपर",knee:"घुटना और ऊपर उठाइए",tall:"सीधे खड़े रहिए",lunge:"दोनों घुटने और मोड़िए",kick:"एड़ी पीछे तक लाइए",climb:"घुटना सीने के और पास",hinge:"और आगे झुकिए",situp:"और ऊपर आइए",wall:"और नीचे, जांघें सीधी",hold:"ऐसे ही रुकिए",good:"बढ़िया",body:"थोड़ा पीछे जाइए, पूरा शरीर दिखना चाहिए",go:"शुरू",fin:"लक्ष्य पूरा। चलते रहिए या अगला दबाएँ"}}
 };
 const DAYS={en:["S","M","T","W","T","F","S"],hi:["र","सो","मं","बु","गु","शु","श"]};
@@ -271,15 +273,31 @@ const DEFAULT_ON=["march","squat","push","jacks","lunge","plank","climb"];
 // ---------- storage ----------
 let S=null;try{S=JSON.parse(localStorage.getItem(KEY))}catch{}
 if(!S){
- // Carry over progress from the old Mom/Dad version: match ?u= to the old name, else the person last selected.
- try{const o=JSON.parse(localStorage.getItem("homecoach1"));const i=U?o.people.findIndex(p=>p.toLowerCase()==U.toLowerCase()):o.who;if(i>=0&&o.data[i])S={lang:o.lang,data:o.data[i]}}catch{}
+ // Merge the old per-person stores (homecoach2:mom, homecoach2:dad): every session and set kept, highest level wins.
+ for(const k of Object.keys(localStorage).filter(k=>k.startsWith(KEY+":"))){try{const o=JSON.parse(localStorage[k]);
+  S??={lang:o.lang,data:{},sessions:[]};S.on??=o.on;S.rounds??=o.rounds;S.sessions.push(...(o.sessions||[]));
+  for(const[id,q]of Object.entries(o.data||{})){const p=S.data[id]??={level:0,log:[]};p.level=Math.max(p.level,q.level||0);p.log.push(...(q.log||[]))}}catch{}}
+}
+if(!S){
+ // Oldest version: Mom/Dad inside one store. Take the person last selected.
+ try{const o=JSON.parse(localStorage.getItem("homecoach1"));if(o.data[o.who])S={lang:o.lang,data:o.data[o.who]}}catch{}
 }
 if(!S||typeof S.data!="object"||!S.data||!T[S.lang])S={lang:S?.lang in T?S.lang:"en",data:{}};
 S.on=(S.on||DEFAULT_ON).filter(id=>EXM[id]);if(!S.on.length)S.on=[...DEFAULT_ON];
 S.rounds=[1,2,3].includes(S.rounds)?S.rounds:2;
 S.sessions??=[];
+// Each session lists what was done in it. Older sessions didn't: attach the sets saved within 5 s of them,
+// and turn sets with no session into one entry per day.
+if(S.v!=3){
+ const logs=Object.entries(S.data).flatMap(([id,p])=>p.log.map(l=>({...l,id}))),row=l=>(l.used=1,{id:l.id,reps:l.reps,good:l.good});
+ for(const x of S.sessions)x.ex??=logs.filter(l=>!l.used&&Math.abs(l.t-x.t)<5000).map(row);
+ const byDay={};for(const l of logs)if(!l.used)(byDay[l.d]??=[]).push(l);
+ for(const[d,ls]of Object.entries(byDay))S.sessions.push({d,t:Math.max(...ls.map(l=>l.t)),secs:0,ex:ls.map(row)});
+ S.v=3;
+}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch{}};
 navigator.storage?.persist?.().catch(()=>{});
+save(); // keep the merged/migrated store
 const L=()=>T[S.lang];
 const prog=id=>S.data[id]??={level:0,log:[]};
 const lvl=e=>{const p=prog(e.id),x=e.levels[Math.min(p.level,e.levels.length-1)];return{name:S.lang=="hi"?x[1]:x[0],reps:x[2],n:p.level+1}};
@@ -301,33 +319,34 @@ function cue(k,cls){const t=L().cue[k]??k;$("cue").textContent=t;$("cue").classN
 function show(id){for(const s of["home","place","cam","result"])$(s).hidden=s!=id;scrollTo(0,0)}
 function home(){
  show("home");const t=L();document.documentElement.lang=S.lang;
- $("hello").textContent=t.hello(U);
- const all=EX.flatMap(e=>prog(e.id).log.map(l=>({...l,e})));
- const days=new Set([...all.map(l=>l.d),...S.sessions.map(s=>s.d)]),done=S.sessions.some(s=>s.d==today()&&s.w),p=plan();
+ $("hello").textContent=t.hello;
+ const days=new Set(S.sessions.map(s=>s.d)),p=plan();
+ // A workout counts toward the daily goal; single-exercise practice (w:false) does not. Old sessions have no flag and count.
+ const nOn=day=>S.sessions.filter(s=>s.d==day&&s.w!==false).length,n=nOn(today());
  // ponytail: ~70 s per set (work + getting into position); measure real sessions if this is far off.
- $("today").innerHTML=`<div class="lab">${done?t.doneToday:t.today}</div><div class="what">${t.min(Math.round(p.length*70/60),p.length)}</div><div class="figs">${[...new Set(p)].map(fig).join("")}</div><button id="go">${done?t.again:t.start}</button>`;
+ $("today").innerHTML=`<div class="lab">${n>=GOAL?t.doneToday:t.today}</div><div class="what">${t.min(Math.round(p.length*70/60),p.length)}</div><div class="figs">${[...new Set(p)].map(fig).join("")}</div><div class="goal">${[...Array(Math.max(GOAL,n))].map((_,i)=>`<i class="${i<n?"on":""}"></i>`).join("")}<span>${t.todayN(n)}</span></div><button id="go">${n?t.again:t.start}</button>`;
  $("go").onclick=()=>place(p);
  // Progress: streak counts back from today (or yesterday, so the streak isn't 0 before today's workout).
  const DAY=864e5;let streak=0,d=Date.now();if(!days.has(ymd(d)))d-=DAY;while(days.has(ymd(d))){streak++;d-=DAY}
- const wk=[...Array(7)].map((_,i)=>ymd(Date.now()-i*DAY)),minsOn=day=>Math.round(S.sessions.filter(s=>s.d==day).reduce((a,s)=>a+s.secs,0)/60);
+ const wk=[...Array(7)].map((_,i)=>ymd(Date.now()-i*DAY));
  $("h-prog").textContent=t.prog;
- $("stats").innerHTML=[[streak,t.streak],[wk.filter(x=>days.has(x)).length,t.week],[wk.reduce((a,x)=>a+minsOn(x),0),t.mins]].map(([n,l])=>`<div class="stat"><b>${n}</b><span>${l}</span></div>`).join("");
- const last14=[...Array(14)].map((_,i)=>{const ms=Date.now()-(13-i)*DAY;return{m:minsOn(ymd(ms)),dn:new Date(ms).getDay(),now:i==13}}),top=Math.max(15,...last14.map(x=>x.m));
- $("chart").innerHTML=last14.map(x=>`<div class="${x.now?"now":""}" title="${x.m} min">${x.m?`<small>${x.m}</small>`:""}<i class="${x.m?"":"z"}" style="height:${x.m/top*70}%"></i><span>${DAYS[S.lang][x.dn]}</span></div>`).join("");
+ $("stats").innerHTML=[[`${n}/${GOAL}`,t.nToday],[streak,t.streak],[wk.reduce((a,x)=>a+nOn(x),0),t.nWeek]].map(([n,l])=>`<div class="stat"><b>${n}</b><span>${l}</span></div>`).join("");
+ const last14=[...Array(14)].map((_,i)=>{const ms=Date.now()-(13-i)*DAY;return{m:nOn(ymd(ms)),dn:new Date(ms).getDay(),now:i==13}}),top=Math.max(GOAL,...last14.map(x=>x.m));
+ // Days under the goal get a pale bar.
+ $("chart").innerHTML=last14.map(x=>`<div class="${x.now?"now":""}">${x.m?`<small>${x.m}</small>`:""}<i class="${!x.m?"z":x.m<GOAL?"h":""}" style="height:${x.m/top*70}%"></i><span>${DAYS[S.lang][x.dn]}</span></div>`).join("");
  $("chartcap").textContent=t.chart;
  $("h-all").textContent=t.all;$("allcap").textContent=t.allcap;$("h-hist").textContent=t.hist;$("h-set").textContent=t.set;
  $("list").innerHTML=EX.map(e=>{const l=lvl(e),on=S.on.includes(e.id),best=Math.max(0,...prog(e.id).log.map(x=>x.reps));
   return `<div class="ex ${on?"":"off"}">${fig(e.id)}<span><b>${esc(e[S.lang])}</b><span class="soft">${l.reps} ${unit(e)}${l.name==e[S.lang]?"":" · "+esc(l.name)}</span><span class="soft"><span class="pill">${t.level} ${l.n}</span>${best?` ${t.best} ${best}`:""}</span></span><button class="tog ${on?"on":""}" data-t="${e.id}">${on?"✓ "+t.inW:t.outW}</button><button class="play" data-e="${e.id}" aria-label="${esc(e[S.lang])}">▶</button></div>`}).join("");
- // History: one card per day, totals per exercise across rounds.
- const byDay={};for(const l of all.sort((a,b)=>b.t-a.t)){const x=((byDay[l.d]??={})[l.e.id]??={e:l.e,reps:0,good:0});x.reps+=l.reps;x.good+=l.good}
- $("hist").innerHTML=Object.keys(byDay).slice(0,7).map(d=>`<div class="dcard"><b>${new Date(d+"T12:00").toLocaleDateString(S.lang=="hi"?"hi-IN":"en-IN",{weekday:"short",day:"numeric",month:"short"})}${minsOn(d)?` · ${minsOn(d)} min`:""}</b>${Object.values(byDay[d]).map(x=>`<div><span>${esc(x.e[S.lang])}</span><span>${x.reps} ${unit(x.e)} <span class="st">${"★".repeat(stars(x.good,x.reps))}</span></span></div>`).join("")}</div>`).join("")||`<p class="soft">${t.noHist}</p>`;
+ // History: every session, newest first. Sessions rebuilt from old sets have secs:0 and show no time.
+ const loc=S.lang=="hi"?"hi-IN":"en-IN";
+ $("hist").innerHTML=[...S.sessions].sort((a,b)=>b.t-a.t).slice(0,20).map(x=>{const when=new Date(x.secs?x.t:Date.parse(x.d+"T12:00")),m=Math.round(x.secs/60);
+  return `<div class="dcard"><b>${when.toLocaleDateString(loc,{weekday:"short",day:"numeric",month:"short"})}${x.secs?" · "+when.toLocaleTimeString(loc,{hour:"numeric",minute:"2-digit"}):""}${m?` · ${m} min`:""}${x.w===false?` · ${t.practice}`:""}</b>${x.ex.filter(r=>EXM[r.id]).map(r=>`<div><span>${esc(EXM[r.id][S.lang])}</span><span>${r.reps} ${unit(EXM[r.id])} <span class="st">${"★".repeat(stars(r.good,r.reps))}</span></span></div>`).join("")}</div>`}).join("")||`<p class="soft">${t.noHist}</p>`;
  $("l-rounds").textContent=t.rounds;
  $("rounds").innerHTML=[1,2,3].map(n=>`<button class="btn ${S.rounds==n?"on":""}" data-r="${n}">${n}</button>`).join("");
  $("lang-en").className="btn"+(S.lang=="en"?" on":"");$("lang-hi").className="btn"+(S.lang=="hi"?" on":"");
  $("novoice").textContent=t.novoice;$("novoice").hidden=!(S.lang=="hi"&&!hv);
- $("l-lang").textContent=t.lang;$("l-links").textContent=t.links;
- const base=location.origin+location.pathname;
- $("links").innerHTML=["Mom","Dad"].map(n=>`<a href="?u=${n}"><code>${esc(base)}?u=${n}</code></a>`).join("<br>");
+ $("l-lang").textContent=t.lang;
  $("safety").textContent=t.safety;
 }
 $("lang-en").onclick=()=>{S.lang="en";save();home()};
@@ -495,7 +514,9 @@ function finish(){
  for(const R of w.done){if(!R.reps)continue;prog(R.ex.id).log.push({d:today(),t:Date.now(),reps:R.reps,good:R.good,level:R.level});
   const x=per[R.ex.id]??={ex:R.ex,reps:0,good:0,target:0,all:true};x.reps+=R.reps;x.good+=R.good;x.target+=R.target;
   if(R.reps<R.target||stars(R.good,R.reps)<3)x.all=false}
- if(w.t0&&w.done.some(R=>R.reps))S.sessions.push({d:today(),t:Date.now(),secs:Math.round((Date.now()-w.t0)/1000),w:w.ids.length>1});
+ // Log every real attempt: any reps counted, or a minute or more spent (camera may have missed the reps).
+ const secs=w.t0?Math.round((Date.now()-w.t0)/1000):0;
+ if(w.t0&&(w.done.some(R=>R.reps)||secs>=60))S.sessions.push({d:today(),t:Date.now(),secs:Math.round((Date.now()-w.t0)/1000),w:w.ids.length>1,ex:Object.values(per).map(x=>({id:x.ex.id,reps:x.reps,good:x.good}))});
  // Level up when every set of that exercise hit its target with 3 stars.
  const ups=[];
  for(const x of Object.values(per)){const p=prog(x.ex.id);if(x.all&&p.level<x.ex.levels.length-1){p.level++;ups.push(x.ex)}}
