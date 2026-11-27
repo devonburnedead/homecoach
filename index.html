@@ -26,13 +26,24 @@ button{font:inherit;color:inherit;cursor:pointer}
 .today .figs{display:flex;flex-wrap:wrap;gap:5px}
 .today .figs svg{width:38px;height:38px;background:rgba(255,255,255,.15);border-radius:50%}
 .today button{width:100%;min-height:64px;border:0;border-radius:14px;background:#fff;color:#0a6b44;font-size:22px;font-weight:800;margin-top:16px}
-.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
-.day{aspect-ratio:1;border-radius:12px;background:var(--empty);display:grid;place-items:center;font-size:16px;color:var(--soft);font-weight:600}
-.day.done{background:var(--go);color:#fff}
-.day.now{outline:2px solid var(--go);outline-offset:1px}
-.ex{display:grid;grid-template-columns:72px 1fr auto;gap:4px 14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin:10px 0;width:100%;text-align:left}
-.ex b{font-size:21px;display:block;line-height:1.2}
-.pill{background:var(--tint);color:var(--goink);border-radius:999px;padding:6px 12px;font-weight:800;font-size:15px;white-space:nowrap}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px 12px}
+.stat b{display:block;font-size:30px;line-height:1.1;color:var(--goink)}
+.stat span{font-size:15px;color:var(--soft)}
+.chart{display:grid;grid-template-columns:repeat(14,minmax(0,1fr));gap:4px;align-items:end;height:110px;margin-top:12px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px 10px 0}
+.chart div{display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;font-size:12px;color:var(--soft)}
+.chart i{display:block;width:100%;background:var(--go);border-radius:4px 4px 0 0;min-height:2px}
+.chart i.z{background:var(--empty)}
+.chart div.now span{color:var(--ink);font-weight:800}
+.ex{display:grid;grid-template-columns:60px 1fr auto auto;gap:4px 10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:10px 10px 10px 12px;margin:10px 0}
+.ex.off{opacity:.55}
+.ex svg{width:60px;height:60px}
+.ex b{font-size:20px;display:block;line-height:1.2}
+.ex .soft{font-size:15px;line-height:1.3;display:block}
+.tog{min-height:48px;min-width:56px;border-radius:12px;border:2px solid var(--line);background:var(--card);font-size:15px;font-weight:800;padding:4px 8px}
+.tog.on{border-color:var(--go);background:var(--tint);color:var(--goink)}
+.play{width:48px;height:48px;border-radius:50%;border:0;background:var(--go);color:#fff;font-size:18px;display:grid;place-items:center}
+.pill{background:var(--tint);color:var(--goink);border-radius:999px;padding:2px 10px;font-weight:800;font-size:14px;white-space:nowrap}
 .fig{fill:none;stroke:var(--go);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
 .fig .hd{fill:var(--go);stroke:none}
 .fig .prop{stroke:var(--soft);stroke-width:3;opacity:.6}
@@ -57,22 +68,22 @@ code{font-size:16px;word-break:break-all;background:var(--empty);padding:2px 6px
 .mirror{transform:scaleX(-1)}
 #hud{position:absolute;left:0;right:0;top:0;padding:max(12px,env(safe-area-inset-top)) 16px 12px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;text-shadow:0 2px 6px #000}
 #name{font-size:24px;font-weight:800;line-height:1.2}
-#time{font-size:52px;font-weight:800;line-height:1.1}
+#time{font-size:40px;font-weight:800;line-height:1.1}
 #step{font-size:17px;opacity:.85}
-#count{font-size:140px;font-weight:800;line-height:.9;flex:none}
-#count small{font-size:40px;opacity:.85}
+#count{font-size:130px;font-weight:800;line-height:.9;flex:none}
+#count small{font-size:36px;opacity:.85}
 #cd{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:6px;text-align:center;padding:20px;background:rgba(0,0,0,.6);text-shadow:0 3px 12px #000}
-#cd .n{font-size:150px;font-weight:800;line-height:1}
+#cd .n{font-size:130px;font-weight:800;line-height:1}
 #cd .x{font-size:32px;font-weight:800;line-height:1.2}
 #cd .h{font-size:24px;line-height:1.3}
-#cue{position:absolute;left:12px;right:12px;bottom:12px;min-height:96px;padding:20px;border-radius:18px;font:800 34px/1.2 Mukta,system-ui,sans-serif;text-align:center;background:#1f2622;display:grid;place-items:center}
+#cue{position:absolute;left:12px;right:12px;bottom:12px;min-height:96px;padding:20px;border-radius:18px;font:800 32px/1.2 Mukta,system-ui,sans-serif;text-align:center;background:#1f2622;display:grid;place-items:center}
 #cue.good{background:var(--go)}
 #cue.bad{background:var(--bad)}
 #bar{display:flex;gap:10px;padding:12px 16px max(12px,env(safe-area-inset-bottom));background:#000}
-#bar button{min-height:64px;border-radius:14px;border:0;font-size:20px;font-weight:800}
+#bar button{min-height:72px;border-radius:14px;border:0;font-size:22px;font-weight:800}
 #flip{width:64px;flex:none;background:#2a2a2a;color:#fff;display:grid;place-items:center}
 #quit{flex:1;background:#2a2a2a;color:#bbb}
-#pause{flex:1;background:var(--go);color:#fff}
+#next{flex:2;background:var(--go);color:#fff}
 #result{text-align:center}
 #result .dcard div{text-align:left}
 .badge{width:88px;height:88px;border-radius:50%;margin:24px auto 8px;display:grid;place-items:center;font-size:48px;color:#fff;background:var(--go)}
@@ -84,15 +95,20 @@ code{font-size:16px;word-break:break-all;background:var(--empty);padding:2px 6px
 <div id="home" class="wrap">
   <h1 id="hello"></h1>
   <div id="today" class="today"></div>
-  <div id="week" class="week"></div>
-  <p id="weekcap" class="soft" style="margin-top:6px;font-size:17px"></p>
+  <h2 id="h-prog"></h2>
+  <div id="stats" class="stats"></div>
+  <div id="chart" class="chart"></div>
+  <p id="chartcap" class="soft" style="margin-top:6px"></p>
   <h2 id="h-all"></h2>
+  <p id="allcap" class="soft"></p>
   <div id="list"></div>
   <h2 id="h-hist"></h2>
   <div id="hist"></div>
   <details>
     <summary id="h-set"></summary>
-    <p class="soft" id="l-lang"></p>
+    <p class="soft" id="l-rounds"></p>
+    <div class="row" id="rounds"></div>
+    <p class="soft" id="l-lang" style="margin-top:16px"></p>
     <div class="row"><button class="btn" id="lang-en">English</button><button class="btn" id="lang-hi">हिंदी</button></div>
     <p class="soft" id="novoice" hidden></p>
     <p class="soft" id="l-links" style="margin-top:16px"></p>
@@ -111,7 +127,7 @@ code{font-size:16px;word-break:break-all;background:var(--empty);padding:2px 6px
     <div id="cue"></div>
     <div id="cd" hidden></div>
   </div>
-  <div id="bar"><button id="flip" aria-label="Flip camera"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8M4 4v4h4M4 13a8 8 0 0 0 14.3 4.9L20 16M20 20v-4h-4"/></svg></button><button id="quit"></button><button id="pause"></button></div>
+  <div id="bar"><button id="flip" aria-label="Flip camera"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8M4 4v4h4M4 13a8 8 0 0 0 14.3 4.9L20 16M20 20v-4h-4"/></svg></button><button id="quit"></button><button id="next"></button></div>
 </div>
 
 <div id="result" class="wrap" hidden></div>
@@ -127,25 +143,30 @@ const KEY="homecoach2"+(U?":"+U.toLowerCase():"");
 
 // ---------- words (UI + voice) ----------
 const T={
- en:{hello:n=>n?`Namaste, ${n}`:"Namaste",today:"Today's workout",min:n=>`${n} minutes`,start:"Start workout",doneToday:"Done today. Well done!",again:"Do it again",week:n=>`${n} day${n==1?"":"s"} this week`,all:"Practise one exercise",level:"Level",reps:"reps",in:s=>`in ${s} s`,hist:"History",noHist:"No workouts yet. Tap Start above.",set:"⚙ Settings",lang:"Language and voice",novoice:"No Hindi voice on this phone. Install it in phone Settings → Text-to-speech.",links:"Each person opens their own link, so progress stays separate. Bookmark yours:",safety:"Stop if anything hurts or you feel dizzy. The video stays on this phone.",ready:"I'm ready",back:"Back",end:"End",pause:"Pause",resume:"Go on",paused:"Paused",loading:"Getting ready…",fail:"Camera did not start: ",place:"Put the phone on the floor against a wall and stand 3 big steps back. The coach tells you when to turn.",steps:"3 big steps",getReady:"Get ready",rest:"Rest",next:"Next",stepOf:(i,n)=>`${i} of ${n}`,ten:"10 seconds",stop:"Stop. Rest.",view:{side:"Turn side-on to the phone",front:"Face the phone",floor:"Lie on your back, side-on to the phone"},finished:"Workout done!",short:"Good effort. Every bit counts.",levelUp:"Level up!",keep:"Hit every target with 3 stars to level up.",finish:"Done ✓",
-  cue:{low:"Sit a bit lower",chest:"Keep your chest up",straight:"Keep your body straight",bend:"Bend your arms more",arms:"Straighten your arms",even:"Raise both arms evenly",higher:"Arms higher",knee:"Lift your knee higher",tall:"Stand tall",hips:"Lift your hips higher",lunge:"Bend both knees more",good:"Good",body:"Step back so your whole body shows",go:"Go",fin:"Target done. Keep going"}},
- hi:{hello:n=>n?`नमस्ते, ${n}`:"नमस्ते",today:"आज का व्यायाम",min:n=>`${n} मिनट`,start:"व्यायाम शुरू करें",doneToday:"आज का पूरा। शाबाश!",again:"फिर से करें",week:n=>`इस हफ़्ते ${n} दिन`,all:"एक व्यायाम का अभ्यास",level:"लेवल",reps:"बार",in:s=>`${s} सेकंड में`,hist:"इतिहास",noHist:"अभी कोई व्यायाम नहीं। ऊपर शुरू करें दबाएँ।",set:"⚙ सेटिंग",lang:"भाषा और आवाज़",novoice:"इस फ़ोन में हिंदी आवाज़ नहीं है। फ़ोन सेटिंग → Text-to-speech में डालें।",links:"हर व्यक्ति अपना लिंक खोले, ताकि प्रगति अलग रहे। अपना लिंक बुकमार्क करें:",safety:"दर्द या चक्कर हो तो तुरंत रुकें। वीडियो इसी फ़ोन में रहता है।",ready:"मैं तैयार हूँ",back:"वापस",end:"बंद करें",pause:"रुकें",resume:"जारी रखें",paused:"रुका हुआ",loading:"तैयारी हो रही है…",fail:"कैमरा शुरू नहीं हुआ: ",place:"फ़ोन को दीवार के सहारे ज़मीन पर रखें और 3 बड़े कदम पीछे खड़े हों। कब मुड़ना है, कोच बताएगा।",steps:"3 बड़े कदम",getReady:"तैयार हो जाइए",rest:"आराम",next:"अगला",stepOf:(i,n)=>`${n} में से ${i}`,ten:"10 सेकंड",stop:"रुकिए। आराम।",view:{side:"फ़ोन की ओर बगल से खड़े हों",front:"फ़ोन की ओर मुँह करें",floor:"पीठ के बल लेटें, फ़ोन की ओर बगल से"},finished:"व्यायाम पूरा!",short:"अच्छी कोशिश। हर थोड़ा मायने रखता है।",levelUp:"अगला लेवल!",keep:"अगले लेवल के लिए हर लक्ष्य 3 सितारों से पूरा करें।",finish:"हो गया ✓",
-  cue:{low:"थोड़ा और नीचे बैठिए",chest:"सीना ऊपर रखिए",straight:"शरीर सीधा रखिए",bend:"बाहें और मोड़िए",arms:"बाहें सीधी रखिए",even:"दोनों हाथ बराबर उठाइए",higher:"हाथ और ऊपर",knee:"घुटना और ऊपर उठाइए",tall:"सीधे खड़े रहिए",hips:"कमर और ऊपर उठाइए",lunge:"दोनों घुटने और मोड़िए",good:"बढ़िया",body:"थोड़ा पीछे जाइए, पूरा शरीर दिखना चाहिए",go:"शुरू",fin:"लक्ष्य पूरा। चलते रहिए"}}
+ en:{hello:n=>n?`Namaste, ${n}`:"Namaste",today:"Today's workout",min:(n,k)=>`About ${n} min · ${k} sets`,start:"Start workout",doneToday:"Done today. Well done!",again:"Do it again",prog:"Progress",streak:"day streak",week:"days this week",mins:"min this week",chart:"Minutes per day, last 14 days",all:"Exercises",allcap:"Tap In/Out to choose what goes in your workout. ▶ practises one on its own.",inW:"In",outW:"Out",level:"Level",reps:"reps",secs:"s",best:"best",hist:"History",noHist:"No workouts yet. Tap Start above.",set:"⚙ Settings",rounds:"Rounds of your exercises",lang:"Language and voice",novoice:"No Hindi voice on this phone. Install it in phone Settings → Text-to-speech.",links:"Each person opens their own link, so progress stays separate. Bookmark yours:",safety:"Stop if anything hurts or you feel dizzy. The video stays on this phone.",ready:"I'm ready",back:"Back",end:"End",next:"Next ▶",last:"Finish ✓",go:"Go now",loading:"Getting ready…",fail:"Camera did not start: ",place:"Put the phone on the floor against a wall and stand 3 big steps back. No timer: tap Next when you're done with each exercise.",steps:"3 big steps",upNext:"Up next",stepOf:(i,n)=>`${i} of ${n}`,view:{side:"Turn side-on to the phone",front:"Face the phone",floor:"Get on the floor, side-on to the phone"},finished:"Workout done!",short:"Good effort. Every bit counts.",levelUp:"Level up!",keep:"Hit the target with 3 stars to level up.",finish:"Done ✓",
+  cue:{low:"Sit a bit lower",chest:"Keep your chest up",straight:"Keep your body straight",bend:"Bend your arms more",higher:"Arms higher",knee:"Lift your knee higher",tall:"Stand tall",lunge:"Bend both knees more",kick:"Heels up to your bottom",climb:"Knee closer to your chest",hinge:"Bend forward more",situp:"Come up higher",wall:"Sit lower, thighs flat",hold:"Hold it",good:"Good",body:"Step back so your whole body shows",go:"Go",fin:"Target done. Keep going, or tap Next"}},
+ hi:{hello:n=>n?`नमस्ते, ${n}`:"नमस्ते",today:"आज का व्यायाम",min:(n,k)=>`करीब ${n} मिनट · ${k} सेट`,start:"व्यायाम शुरू करें",doneToday:"आज का पूरा। शाबाश!",again:"फिर से करें",prog:"प्रगति",streak:"दिन लगातार",week:"दिन इस हफ़्ते",mins:"मिनट इस हफ़्ते",chart:"हर दिन के मिनट, पिछले 14 दिन",all:"व्यायाम",allcap:"अंदर/बाहर दबाकर चुनें कि व्यायाम में क्या हो। ▶ से अकेले अभ्यास करें।",inW:"अंदर",outW:"बाहर",level:"लेवल",reps:"बार",secs:"सेकंड",best:"सबसे अच्छा",hist:"इतिहास",noHist:"अभी कोई व्यायाम नहीं। ऊपर शुरू करें दबाएँ।",set:"⚙ सेटिंग",rounds:"कितने राउंड",lang:"भाषा और आवाज़",novoice:"इस फ़ोन में हिंदी आवाज़ नहीं है। फ़ोन सेटिंग → Text-to-speech में डालें।",links:"हर व्यक्ति अपना लिंक खोले, ताकि प्रगति अलग रहे। अपना लिंक बुकमार्क करें:",safety:"दर्द या चक्कर हो तो तुरंत रुकें। वीडियो इसी फ़ोन में रहता है।",ready:"मैं तैयार हूँ",back:"वापस",end:"बंद करें",next:"अगला ▶",last:"पूरा ✓",go:"अभी शुरू",loading:"तैयारी हो रही है…",fail:"कैमरा शुरू नहीं हुआ: ",place:"फ़ोन को दीवार के सहारे ज़मीन पर रखें और 3 बड़े कदम पीछे खड़े हों। कोई टाइमर नहीं: हर व्यायाम के बाद अगला दबाएँ।",steps:"3 बड़े कदम",upNext:"अगला",stepOf:(i,n)=>`${n} में से ${i}`,view:{side:"फ़ोन की ओर बगल से खड़े हों",front:"फ़ोन की ओर मुँह करें",floor:"ज़मीन पर, फ़ोन की ओर बगल से"},finished:"व्यायाम पूरा!",short:"अच्छी कोशिश। हर थोड़ा मायने रखता है।",levelUp:"अगला लेवल!",keep:"अगले लेवल के लिए लक्ष्य 3 सितारों से पूरा करें।",finish:"हो गया ✓",
+  cue:{low:"थोड़ा और नीचे बैठिए",chest:"सीना ऊपर रखिए",straight:"शरीर सीधा रखिए",bend:"बाहें और मोड़िए",higher:"हाथ और ऊपर",knee:"घुटना और ऊपर उठाइए",tall:"सीधे खड़े रहिए",lunge:"दोनों घुटने और मोड़िए",kick:"एड़ी पीछे तक लाइए",climb:"घुटना सीने के और पास",hinge:"और आगे झुकिए",situp:"और ऊपर आइए",wall:"और नीचे, जांघें सीधी",hold:"ऐसे ही रुकिए",good:"बढ़िया",body:"थोड़ा पीछे जाइए, पूरा शरीर दिखना चाहिए",go:"शुरू",fin:"लक्ष्य पूरा। चलते रहिए या अगला दबाएँ"}}
 };
 const DAYS={en:["S","M","T","W","T","F","S"],hi:["र","सो","मं","बु","गु","शु","श"]};
 
 // ---------- stick figures (72x72) ----------
-const PROP={squat:"",push:`<path class="prop" d="M60 6V66"/>`,raise:"",march:"",jacks:"",lunge:`<path class="prop" d="M6 64H66"/>`,bridge:`<path class="prop" d="M4 64H68"/>`};
-const BODY={
- squat:`<circle class="hd" cx="40" cy="14" r="6"/><path d="M38 21L30 40L46 44L44 62M37 27L56 30"/>`,
- push:`<circle class="hd" cx="46" cy="16" r="6"/><path d="M43 23L24 62M41 27L50 34L60 30"/>`,
- raise:`<circle class="hd" cx="36" cy="13" r="6"/><path d="M36 20V42L30 62M36 42L42 62M36 25L18 20M36 25L54 20"/>`,
+const FLOOR=`<path class="prop" d="M4 64H68"/>`;
+const FIG={
  march:`<circle class="hd" cx="36" cy="12" r="6"/><path d="M36 19V62M36 40H51V57M36 25L27 37M36 25L45 35"/>`,
+ kick:`<circle class="hd" cx="36" cy="12" r="6"/><path d="M36 19V62M36 40L40 52L28 46M36 25L27 37M36 25L45 35"/>`,
  jacks:`<circle class="hd" cx="36" cy="13" r="6"/><path d="M36 20V42L22 62M36 42L50 62M36 25L22 7M36 25L50 7"/>`,
- lunge:`<circle class="hd" cx="36" cy="10" r="6"/><path d="M36 17V40L50 48V62M36 40L26 52L14 60M36 24V38"/>`,
- bridge:`<circle class="hd" cx="10" cy="58" r="6"/><path d="M16 58L38 42L52 38L58 62M16 58L32 62"/>`
+ squat:`<circle class="hd" cx="40" cy="14" r="6"/><path d="M38 21L30 40L46 44L44 62M37 27L56 30"/>`,
+ lunge:FLOOR+`<circle class="hd" cx="36" cy="10" r="6"/><path d="M36 17V40L50 48V62M36 40L26 52L14 60M36 24V38"/>`,
+ hinge:`<circle class="hd" cx="60" cy="21" r="6"/><path d="M34 38V62M34 38L54 26M54 26L48 20"/>`,
+ wall:`<path class="prop" d="M18 4V66"/><circle class="hd" cx="27" cy="12" r="6"/><path d="M26 19V40H46V62M26 25L40 32"/>`,
+ push:`<path class="prop" d="M60 6V66"/><circle class="hd" cx="46" cy="16" r="6"/><path d="M43 23L24 62M41 27L50 34L60 30"/>`,
+ dip:`<path class="prop" d="M6 44H26M9 44V64M23 44V64"/><circle class="hd" cx="36" cy="14" r="6"/><path d="M36 21V46H56L58 64M36 26L26 34L22 44"/>`,
+ climb:FLOOR+`<circle class="hd" cx="10" cy="28" r="6"/><path d="M16 32L42 38L64 58M42 38L32 50L42 58M20 34V60"/>`,
+ plank:FLOOR+`<circle class="hd" cx="10" cy="38" r="6"/><path d="M16 42L66 58M20 44V58H30"/>`,
+ situp:FLOOR+`<circle class="hd" cx="18" cy="30" r="6"/><path d="M22 37L34 60L46 44L58 60M22 40L36 44"/>`
 };
-const fig=id=>`<svg class="fig" viewBox="0 0 72 72" width="72" height="72" aria-hidden="true">${PROP[id]}${BODY[id]}</svg>`;
+const fig=id=>`<svg class="fig" viewBox="0 0 72 72" width="72" height="72" aria-hidden="true">${FIG[id]}</svg>`;
 
 // ---------- geometry ----------
 let AR=1;
@@ -158,65 +179,93 @@ const side=(lm,Ls)=>{const Rs=Ls.map(i=>i+1),v=a=>a.reduce((s,i)=>s+(lm[i].visib
 // Visible = confident AND inside the frame (visibility can be high for off-screen points).
 const ok=p=>(p.visibility??1)>.5&&p.x>-.02&&p.x<1.02&&p.y>-.02&&p.y<1.02;
 const vis=(lm,ex)=>ex.need.every(i=>ok(lm[i]))||(ex.sideOn&&ex.need.every(i=>ok(lm[i+1])));
+// Lowest hip / knee angle of the two legs, 3D when world landmarks exist.
+const both=(lm,w,a,b,c)=>w?Math.min(ang3(w[a],w[b],w[c]),ang3(w[a+1],w[b+1],w[c+1])):Math.min(ang(lm[a],lm[b],lm[c]),ang(lm[a+1],lm[b+1],lm[c+1]));
+const L2=(en,hi,n)=>[en,hi,n];
 
 // ---------- exercises ----------
-// A rep = leave rest, pass `act` (counted), come back to rest. Not reaching `ideal` = counted but flagged with `endCue`.
-// low=true: the angle drops during the move (squat); false: it rises (arm raise).
-// levels: [English name, Hindi name, target reps within the station's time]. Pitched at fit-enough people in their 40s.
+// Reps: leave rest, pass `act` (counted), come back to rest. Not reaching `ideal` = counted but flagged with `endCue`.
+// low=true: the angle drops during the move (squat); false: it rises (jacks).
+// Holds (`hold`): seconds count only while hold(lm) is true. Targets are in seconds.
+// levels: [English, Hindi, target]. Pitched at fit-enough people in their 40s.
 const EX=[
- {id:"march",view:"side",sideOn:true,need:[11,23,25],en:"High-knee march",hi:"ऊँचे घुटने मार्च",
-  tip:{en:"March on the spot, knees up to hip height.",hi:"एक जगह मार्च करें, घुटने कमर तक।"},
-  levels:[["March","मार्च",20],["March","मार्च",28],["Brisk march","तेज़ मार्च",34],["Brisk march","तेज़ मार्च",40],["High-knee jog","घुटने ऊपर जॉग",46],["High-knee jog","घुटने ऊपर जॉग",52]],
+ {id:"march",view:"side",sideOn:true,need:[11,23,25],en:"High knees",hi:"ऊँचे घुटने",
+  tip:{en:"March or jog on the spot, knees up to hip height.",hi:"एक जगह मार्च या जॉग, घुटने कमर तक।"},
+  levels:[L2("March","मार्च",30),L2("Brisk march","तेज़ मार्च",40),L2("Brisk march","तेज़ मार्च",50),L2("High-knee jog","घुटने ऊपर जॉग",50),L2("High-knee jog","घुटने ऊपर जॉग",60),L2("High-knee jog","घुटने ऊपर जॉग",80)],
   // ponytail: one state machine on the higher knee; fast jogging can merge two lifts. Per-leg machines if it undercounts.
   low:true,rest:150,act:140,ideal:125,endCue:"knee",
-  metric:(lm,w)=>w?Math.min(ang3(w[11],w[23],w[25]),ang3(w[12],w[24],w[26])):Math.min(ang(lm[11],lm[23],lm[25]),ang(lm[12],lm[24],lm[26])),
+  metric:(lm,w)=>both(lm,w,11,23,25),
   live:lm=>lean(lm[11],lm[23])>25?"tall":null},
- {id:"raise",view:"front",need:[11,12,13,14,15,16,23,24],en:"Arm raise",hi:"हाथ ऊपर उठाना",
-  tip:{en:"Raise both arms out and up over your head.",hi:"दोनों हाथ बगल से सिर के ऊपर तक उठाएँ।"},
-  levels:[["Arm raise","हाथ ऊपर",12],["Arm raise","हाथ ऊपर",16],["Arm raise","हाथ ऊपर",20],["Holding water bottles","पानी की बोतल लेकर",14],["Holding water bottles","पानी की बोतल लेकर",18],["Holding water bottles","पानी की बोतल लेकर",22]],
-  low:false,rest:50,act:130,ideal:150,endCue:"higher",
-  metric:lm=>Math.min(ang(lm[23],lm[11],lm[15]),ang(lm[24],lm[12],lm[16])),
-  live:lm=>{const l=ang(lm[23],lm[11],lm[15]),r=ang(lm[24],lm[12],lm[16]);if(Math.max(l,r)>70&&Math.abs(l-r)>30)return"even";if(Math.max(l,r)>90&&Math.min(ang(lm[11],lm[13],lm[15]),ang(lm[12],lm[14],lm[16]))<140)return"arms";return null}},
  {id:"squat",view:"side",sideOn:true,need:[11,23,25,27],en:"Squat",hi:"स्क्वाट",
   tip:{en:"Feet hip-width, sit back like into a chair, stand up.",hi:"पैर कमर जितने खुले, कुर्सी की तरह पीछे बैठें, फिर उठें।"},
-  levels:[["Chair squat","कुर्सी स्क्वाट",10],["Chair squat","कुर्सी स्क्वाट",14],["Squat","स्क्वाट",12],["Squat","स्क्वाट",16],["Squat","स्क्वाट",20],["Squat, 3 s down","स्क्वाट, 3 सेकंड में नीचे",10]],
+  levels:[L2("Chair squat","कुर्सी स्क्वाट",12),L2("Squat","स्क्वाट",12),L2("Squat","स्क्वाट",16),L2("Squat","स्क्वाट",20),L2("Squat, 3 s down","स्क्वाट, 3 सेकंड में नीचे",12),L2("Squat","स्क्वाट",30)],
   low:true,rest:155,act:130,ideal:115,endCue:"low",
   metric:lm=>{const[h,k,a]=side(lm,[23,25,27]);return ang(h,k,a)},
   live:lm=>{const[s,h]=side(lm,[11,23]);return lean(s,h)>65?"chest":null}},
  {id:"push",view:"side",sideOn:true,need:[11,13,15,23,25],en:"Push-up",hi:"पुश-अप",
   tip:{en:"Body straight from head to knees. Lower your chest, push back.",hi:"सिर से घुटनों तक शरीर सीधा। सीना नीचे, फिर ऊपर।"},
-  levels:[["Wall push-up","दीवार पुश-अप",12],["Wall push-up","दीवार पुश-अप",16],["Kitchen counter","किचन स्लैब पर",12],["Kitchen counter","किचन स्लैब पर",16],["Knee push-up on floor","घुटनों पर पुश-अप",10],["Full push-up","पूरा पुश-अप",8]],
-  low:true,rest:150,act:125,ideal:115,endCue:"bend",
+  levels:[L2("Kitchen counter","किचन स्लैब पर",12),L2("Kitchen counter","किचन स्लैब पर",16),L2("Knee push-up","घुटनों पर पुश-अप",10),L2("Knee push-up","घुटनों पर पुश-अप",15),L2("Full push-up","पूरा पुश-अप",8),L2("Full push-up","पूरा पुश-अप",15)],
+  low:true,rest:150,act:125,ideal:110,endCue:"bend",
   metric:lm=>{const[s,e,w]=side(lm,[11,13,15]);return ang(s,e,w)},
   // shoulder-hip-knee, so knee push-ups are judged the same way as full ones.
   live:lm=>{const[s,h,k]=side(lm,[11,23,25]);return ang(s,h,k)<155?"straight":null}},
  {id:"jacks",view:"front",need:[11,12,13,14,15,16,23,24],en:"Jumping jack",hi:"जंपिंग जैक",
   tip:{en:"Arms up overhead as your feet go wide.",hi:"पैर खोलते समय हाथ सिर के ऊपर।"},
-  levels:[["Step jack, no jump","स्टेप जैक, बिना कूदे",16],["Step jack, no jump","स्टेप जैक, बिना कूदे",22],["Jumping jack","जंपिंग जैक",20],["Jumping jack","जंपिंग जैक",26],["Jumping jack","जंपिंग जैक",32],["Jumping jack","जंपिंग जैक",38]],
+  levels:[L2("Step jack, no jump","स्टेप जैक, बिना कूदे",20),L2("Jumping jack","जंपिंग जैक",20),L2("Jumping jack","जंपिंग जैक",30),L2("Jumping jack","जंपिंग जैक",40),L2("Jumping jack","जंपिंग जैक",50),L2("Jumping jack","जंपिंग जैक",60)],
   low:false,rest:50,act:120,ideal:140,endCue:"higher",
   metric:lm=>Math.min(ang(lm[23],lm[11],lm[15]),ang(lm[24],lm[12],lm[16])),
   live:()=>null},
  {id:"lunge",view:"side",sideOn:true,need:[11,23,25,27],en:"Reverse lunge",hi:"रिवर्स लंज",
   tip:{en:"Step one foot back, bend both knees, step in. Swap legs.",hi:"एक पैर पीछे, दोनों घुटने मोड़ें, वापस आएँ। पैर बदलें।"},
-  levels:[["Holding a chair","कुर्सी पकड़कर",8],["Holding a chair","कुर्सी पकड़कर",10],["No chair","बिना कुर्सी",10],["No chair","बिना कुर्सी",12],["No chair","बिना कुर्सी",14],["Slow, 3 s down","धीरे, 3 सेकंड में नीचे",10]],
+  levels:[L2("Holding a chair","कुर्सी पकड़कर",10),L2("No chair","बिना कुर्सी",10),L2("No chair","बिना कुर्सी",14),L2("No chair","बिना कुर्सी",18),L2("Slow, 3 s down","धीरे, 3 सेकंड में नीचे",12),L2("No chair","बिना कुर्सी",24)],
   low:true,rest:160,act:125,ideal:105,endCue:"lunge",
   metric:lm=>Math.min(ang(lm[23],lm[25],lm[27]),ang(lm[24],lm[26],lm[28])),
   live:lm=>{const[s,h]=side(lm,[11,23]);return lean(s,h)>30?"tall":null}},
- {id:"bridge",view:"floor",sideOn:true,need:[11,23,25],en:"Glute bridge",hi:"ग्लूट ब्रिज",
-  tip:{en:"On your back, knees bent. Lift your hips, lower slowly.",hi:"पीठ के बल, घुटने मोड़कर। कमर ऊपर उठाएँ, धीरे नीचे।"},
-  levels:[["Glute bridge","ग्लूट ब्रिज",10],["Glute bridge","ग्लूट ब्रिज",12],["Glute bridge","ग्लूट ब्रिज",15],["Hold 2 s at the top","ऊपर 2 सेकंड रुकें",10],["Hold 2 s at the top","ऊपर 2 सेकंड रुकें",12],["Glute bridge","ग्लूट ब्रिज",20]],
-  // ponytail: hips down ~130°, up ~175° by geometry; not yet checked on a real person lying down. Tune rest/act if it miscounts.
-  low:false,rest:145,act:162,ideal:170,endCue:"hips",
+ {id:"plank",view:"floor",sideOn:true,need:[11,23,25],en:"Plank",hi:"प्लैंक",
+  tip:{en:"On your forearms, body in one straight line. Hold.",hi:"कोहनियों पर, शरीर एक सीधी रेखा में। रुकिए।"},
+  levels:[L2("Knee plank","घुटनों पर प्लैंक",20),L2("Knee plank","घुटनों पर प्लैंक",30),L2("Plank","प्लैंक",20),L2("Plank","प्लैंक",30),L2("Plank","प्लैंक",45),L2("Plank","प्लैंक",60)],
+  endCue:"straight",
+  // Straight (shoulder-hip-knee) and lying flat (shoulder-knee line under 40° from level). Knees used so knee planks count too.
+  hold:lm=>{const[s,h,k]=side(lm,[11,23,25]);return ang(s,h,k)>150&&Math.abs(k.y-s.y)<Math.abs(k.x-s.x)*AR*.84}},
+ {id:"kick",view:"side",sideOn:true,need:[23,25,27],en:"Butt kicks",hi:"बट किक",
+  tip:{en:"Jog on the spot, kick your heels up behind you.",hi:"एक जगह जॉग, एड़ियाँ पीछे ऊपर तक।"},
+  levels:[L2("Butt kicks","बट किक",30),L2("Butt kicks","बट किक",40),L2("Butt kicks","बट किक",50),L2("Fast butt kicks","तेज़ बट किक",50),L2("Fast butt kicks","तेज़ बट किक",60),L2("Fast butt kicks","तेज़ बट किक",80)],
+  low:true,rest:140,act:95,ideal:70,endCue:"kick",
+  metric:(lm,w)=>both(lm,w,23,25,27),
+  live:()=>null},
+ {id:"dip",view:"side",sideOn:true,need:[11,13,15],en:"Chair dip",hi:"कुर्सी डिप",
+  tip:{en:"Hands on a sturdy chair behind you. Bend your elbows, push up.",hi:"पीछे मज़बूत कुर्सी पर हाथ। कोहनी मोड़ें, फिर ऊपर।"},
+  levels:[L2("Knees bent","घुटने मोड़कर",8),L2("Knees bent","घुटने मोड़कर",12),L2("Knees bent","घुटने मोड़कर",15),L2("Legs straight","पैर सीधे",10),L2("Legs straight","पैर सीधे",14),L2("Legs straight","पैर सीधे",18)],
+  low:true,rest:150,act:120,ideal:100,endCue:"bend",
+  metric:lm=>{const[s,e,w]=side(lm,[11,13,15]);return ang(s,e,w)},
+  live:()=>null},
+ {id:"climb",view:"floor",sideOn:true,need:[11,23,25],en:"Mountain climber",hi:"माउंटेन क्लाइंबर",
+  tip:{en:"Push-up position, drive one knee to your chest, swap.",hi:"पुश-अप की स्थिति, एक घुटना सीने तक, फिर दूसरा।"},
+  levels:[L2("Slow","धीरे",16),L2("Slow","धीरे",20),L2("Mountain climber","माउंटेन क्लाइंबर",20),L2("Mountain climber","माउंटेन क्लाइंबर",30),L2("Fast","तेज़",40),L2("Fast","तेज़",50)],
+  low:true,rest:150,act:125,ideal:105,endCue:"climb",
+  metric:(lm,w)=>both(lm,w,11,23,25),
+  live:()=>null},
+ {id:"wall",view:"side",sideOn:true,need:[11,23,25,27],en:"Wall sit",hi:"वॉल सिट",
+  tip:{en:"Back flat on a wall, slide down until knees are bent. Hold.",hi:"पीठ दीवार से लगाकर नीचे खिसकें, घुटने मुड़े रहें। रुकिए।"},
+  levels:[L2("Wall sit","वॉल सिट",20),L2("Wall sit","वॉल सिट",30),L2("Wall sit","वॉल सिट",40),L2("Wall sit","वॉल सिट",50),L2("Wall sit","वॉल सिट",60),L2("Wall sit","वॉल सिट",90)],
+  endCue:"wall",
+  hold:lm=>{const[s,h,k,a]=side(lm,[11,23,25,27]),kn=ang(h,k,a),hp=ang(s,h,k);return kn>60&&kn<125&&hp>60&&hp<135}},
+ {id:"hinge",view:"side",sideOn:true,need:[11,23,25],en:"Hip hinge",hi:"हिप हिंज",
+  tip:{en:"Knees soft, back flat, push hips back and bend forward. Stand up.",hi:"घुटने हल्के मुड़े, पीठ सीधी, कमर पीछे करके आगे झुकें। फिर सीधे।"},
+  levels:[L2("Hands on hips","हाथ कमर पर",10),L2("Hands on hips","हाथ कमर पर",14),L2("Hands behind head","हाथ सिर के पीछे",12),L2("Hands behind head","हाथ सिर के पीछे",16),L2("Holding water bottles","पानी की बोतल लेकर",14),L2("Holding water bottles","पानी की बोतल लेकर",20)],
+  low:true,rest:160,act:135,ideal:115,endCue:"hinge",
+  metric:lm=>{const[s,h,k]=side(lm,[11,23,25]);return ang(s,h,k)},
+  live:()=>null},
+ {id:"situp",view:"floor",sideOn:true,need:[11,23,25],en:"Sit-up",hi:"सिट-अप",
+  tip:{en:"On your back, knees bent. Sit all the way up, lower slowly.",hi:"पीठ के बल, घुटने मोड़कर। पूरा ऊपर उठें, धीरे नीचे।"},
+  levels:[L2("Arms reaching forward","हाथ आगे करके",8),L2("Arms reaching forward","हाथ आगे करके",12),L2("Arms crossed","हाथ सीने पर",10),L2("Arms crossed","हाथ सीने पर",14),L2("Hands behind head","हाथ सिर के पीछे",12),L2("Hands behind head","हाथ सिर के पीछे",18)],
+  // ponytail: lying ~130°, sitting up ~60° by geometry; not yet checked on a real person. Tune rest/act if it miscounts.
+  low:true,rest:115,act:90,ideal:75,endCue:"situp",
   metric:lm=>{const[s,h,k]=side(lm,[11,23,25]);return ang(s,h,k)},
   live:()=>null}
 ];
 const EXM=Object.fromEntries(EX.map(e=>[e.id,e]));
-
-// ---------- the workout ----------
-const WORK=40,REST=20,READY=10;
-// Warm-up, then 2 rounds of the circuit: about 12 minutes.
-const WORKOUT=["march","raise",...[0,1].flatMap(()=>["squat","push","jacks","lunge","bridge"])].map(id=>({id,s:WORK}));
-const mins=plan=>Math.round((READY+plan.reduce((a,p)=>a+p.s,0)+REST*(plan.length-1))/60);
+const DEFAULT_ON=["march","squat","push","jacks","lunge","plank","climb"];
 
 // ---------- storage ----------
 let S=null;try{S=JSON.parse(localStorage.getItem(KEY))}catch{}
@@ -225,15 +274,20 @@ if(!S){
  try{const o=JSON.parse(localStorage.getItem("homecoach1"));const i=U?o.people.findIndex(p=>p.toLowerCase()==U.toLowerCase()):o.who;if(i>=0&&o.data[i])S={lang:o.lang,data:o.data[i]}}catch{}
 }
 if(!S||typeof S.data!="object"||!S.data||!T[S.lang])S={lang:S?.lang in T?S.lang:"en",data:{}};
+S.on=(S.on||DEFAULT_ON).filter(id=>EXM[id]);if(!S.on.length)S.on=[...DEFAULT_ON];
+S.rounds=[1,2,3].includes(S.rounds)?S.rounds:2;
+S.sessions??=[];
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch{}};
 navigator.storage?.persist?.().catch(()=>{});
 const L=()=>T[S.lang];
 const prog=id=>S.data[id]??={level:0,log:[]};
 const lvl=e=>{const p=prog(e.id),x=e.levels[Math.min(p.level,e.levels.length-1)];return{name:S.lang=="hi"?x[1]:x[0],reps:x[2],n:p.level+1}};
+const unit=e=>e.hold?L().secs:L().reps;
 // Local date, not UTC: a 5 a.m. IST workout belongs to today.
 const ymd=ms=>{const t=new Date(ms);t.setMinutes(t.getMinutes()-t.getTimezoneOffset());return t.toISOString().slice(0,10)};
 const today=()=>ymd(Date.now());
 const stars=(g,r)=>!r?0:g/r>=.8?3:g/r>=.5?2:1;
+const plan=()=>[...Array(S.rounds)].flatMap(()=>EX.filter(e=>S.on.includes(e.id)).map(e=>e.id));
 
 // ---------- voice ----------
 let hv=null;const loadVoices=()=>{try{hv=speechSynthesis.getVoices().find(v=>v.lang.toLowerCase().startsWith("hi"))||null}catch{}};
@@ -248,17 +302,26 @@ function home(){
  show("home");const t=L();document.documentElement.lang=S.lang;
  $("hello").textContent=t.hello(U);
  const all=EX.flatMap(e=>prog(e.id).log.map(l=>({...l,e})));
- const days=new Set(all.map(l=>l.d)),done=days.has(today());
- $("today").innerHTML=`<div class="lab">${done?t.doneToday:t.today}</div><div class="what">${t.min(mins(WORKOUT))}</div><div class="figs">${[...new Set(WORKOUT.map(p=>p.id))].map(fig).join("")}</div><button id="go">${done?t.again:t.start}</button>`;
- $("go").onclick=()=>place(WORKOUT);
- let n=0;
- $("week").innerHTML=[...Array(7)].map((_,i)=>{const d=new Date(Date.now()-(6-i)*864e5),on=days.has(ymd(d));n+=on;return `<div class="day ${on?"done":""} ${i==6?"now":""}">${on?"✓":DAYS[S.lang][d.getDay()]}</div>`}).join("");
- $("weekcap").textContent=t.week(n);
- $("h-all").textContent=t.all;$("h-hist").textContent=t.hist;$("h-set").textContent=t.set;
- $("list").innerHTML=EX.map(e=>{const l=lvl(e);return `<button class="ex" data-e="${e.id}">${fig(e.id)}<span><b>${esc(e[S.lang])}</b><span class="soft">${l.reps} ${t.reps} ${t.in(WORK)}${l.name==e[S.lang]?"":" · "+esc(l.name)}</span></span><span class="pill">${t.level} ${l.n}</span></button>`}).join("");
- // History: one card per day, reps summed per exercise across rounds.
+ const days=new Set([...all.map(l=>l.d),...S.sessions.map(s=>s.d)]),done=days.has(today()),p=plan();
+ // ponytail: ~70 s per set (work + getting into position); measure real sessions if this is far off.
+ $("today").innerHTML=`<div class="lab">${done?t.doneToday:t.today}</div><div class="what">${t.min(Math.round(p.length*70/60),p.length)}</div><div class="figs">${[...new Set(p)].map(fig).join("")}</div><button id="go">${done?t.again:t.start}</button>`;
+ $("go").onclick=()=>place(p);
+ // Progress: streak counts back from today (or yesterday, so the streak isn't 0 before today's workout).
+ const DAY=864e5;let streak=0,d=Date.now();if(!days.has(ymd(d)))d-=DAY;while(days.has(ymd(d))){streak++;d-=DAY}
+ const wk=[...Array(7)].map((_,i)=>ymd(Date.now()-i*DAY)),minsOn=day=>Math.round(S.sessions.filter(s=>s.d==day).reduce((a,s)=>a+s.secs,0)/60);
+ $("h-prog").textContent=t.prog;
+ $("stats").innerHTML=[[streak,t.streak],[wk.filter(x=>days.has(x)).length,t.week],[wk.reduce((a,x)=>a+minsOn(x),0),t.mins]].map(([n,l])=>`<div class="stat"><b>${n}</b><span>${l}</span></div>`).join("");
+ const last14=[...Array(14)].map((_,i)=>{const ms=Date.now()-(13-i)*DAY;return{m:minsOn(ymd(ms)),dn:new Date(ms).getDay(),now:i==13}}),top=Math.max(15,...last14.map(x=>x.m));
+ $("chart").innerHTML=last14.map(x=>`<div class="${x.now?"now":""}" title="${x.m} min">${x.m?`<small>${x.m}</small>`:""}<i class="${x.m?"":"z"}" style="height:${x.m/top*70}%"></i><span>${DAYS[S.lang][x.dn]}</span></div>`).join("");
+ $("chartcap").textContent=t.chart;
+ $("h-all").textContent=t.all;$("allcap").textContent=t.allcap;$("h-hist").textContent=t.hist;$("h-set").textContent=t.set;
+ $("list").innerHTML=EX.map(e=>{const l=lvl(e),on=S.on.includes(e.id),best=Math.max(0,...prog(e.id).log.map(x=>x.reps));
+  return `<div class="ex ${on?"":"off"}">${fig(e.id)}<span><b>${esc(e[S.lang])}</b><span class="soft">${l.reps} ${unit(e)}${l.name==e[S.lang]?"":" · "+esc(l.name)}</span><span class="soft"><span class="pill">${t.level} ${l.n}</span>${best?` ${t.best} ${best}`:""}</span></span><button class="tog ${on?"on":""}" data-t="${e.id}">${on?"✓ "+t.inW:t.outW}</button><button class="play" data-e="${e.id}" aria-label="${esc(e[S.lang])}">▶</button></div>`}).join("");
+ // History: one card per day, totals per exercise across rounds.
  const byDay={};for(const l of all.sort((a,b)=>b.t-a.t)){const x=((byDay[l.d]??={})[l.e.id]??={e:l.e,reps:0,good:0});x.reps+=l.reps;x.good+=l.good}
- $("hist").innerHTML=Object.keys(byDay).slice(0,7).map(d=>`<div class="dcard"><b>${new Date(d+"T12:00").toLocaleDateString(S.lang=="hi"?"hi-IN":"en-IN",{weekday:"short",day:"numeric",month:"short"})}</b>${Object.values(byDay[d]).map(x=>`<div><span>${esc(x.e[S.lang])}</span><span>${x.reps} ${t.reps} <span class="st">${"★".repeat(stars(x.good,x.reps))}</span></span></div>`).join("")}</div>`).join("")||`<p class="soft">${t.noHist}</p>`;
+ $("hist").innerHTML=Object.keys(byDay).slice(0,7).map(d=>`<div class="dcard"><b>${new Date(d+"T12:00").toLocaleDateString(S.lang=="hi"?"hi-IN":"en-IN",{weekday:"short",day:"numeric",month:"short"})}${minsOn(d)?` · ${minsOn(d)} min`:""}</b>${Object.values(byDay[d]).map(x=>`<div><span>${esc(x.e[S.lang])}</span><span>${x.reps} ${unit(x.e)} <span class="st">${"★".repeat(stars(x.good,x.reps))}</span></span></div>`).join("")}</div>`).join("")||`<p class="soft">${t.noHist}</p>`;
+ $("l-rounds").textContent=t.rounds;
+ $("rounds").innerHTML=[1,2,3].map(n=>`<button class="btn ${S.rounds==n?"on":""}" data-r="${n}">${n}</button>`).join("");
  $("lang-en").className="btn"+(S.lang=="en"?" on":"");$("lang-hi").className="btn"+(S.lang=="hi"?" on":"");
  $("novoice").textContent=t.novoice;$("novoice").hidden=!(S.lang=="hi"&&!hv);
  $("l-lang").textContent=t.lang;$("l-links").textContent=t.links;
@@ -268,19 +331,25 @@ function home(){
 }
 $("lang-en").onclick=()=>{S.lang="en";save();home()};
 $("lang-hi").onclick=()=>{S.lang="hi";save();home()};
-$("list").onclick=e=>{const b=e.target.closest("[data-e]");if(b)place([{id:b.dataset.e,s:WORK}])};
+$("rounds").onclick=e=>{const b=e.target.closest("[data-r]");if(b){S.rounds=+b.dataset.r;save();home()}};
+$("list").onclick=e=>{
+ const p=e.target.closest("[data-e]");if(p)return place([p.dataset.e]);
+ const b=e.target.closest("[data-t]");if(!b)return;const id=b.dataset.t;
+ if(S.on.includes(id)){if(S.on.length>1)S.on=S.on.filter(x=>x!=id)}else S.on.push(id);
+ save();const y=scrollY;home();scrollTo(0,y);
+};
 
 // ---------- placement guide ----------
-function place(plan){
- const t=L(),ex=EXM[plan[0].id];show("place");
- $("place").innerHTML=`<h1>${plan.length>1?t.today:esc(ex[S.lang])}</h1>
- <svg viewBox="0 0 320 170" class="fig" aria-hidden="true"><path class="prop" d="M14 8V156H312"/><rect x="18" y="118" width="16" height="34" rx="3" transform="rotate(-14 26 152)" style="stroke:var(--ink);stroke-width:3"/><path d="M50 146H196" style="stroke:var(--soft);stroke-dasharray:3 12;stroke-width:4"/><text x="123" y="134" text-anchor="middle" style="fill:var(--soft);stroke:none;font:600 17px Mukta,sans-serif">${t.steps}</text><g transform="translate(206 62) scale(1.32)">${BODY[ex.id]}</g></svg>
+function place(ids){
+ const t=L(),ex=EXM[ids[0]];show("place");
+ $("place").innerHTML=`<h1>${ids.length>1?t.today:esc(ex[S.lang])}</h1>
+ <svg viewBox="0 0 320 170" class="fig" aria-hidden="true"><path class="prop" d="M14 8V156H312"/><rect x="18" y="118" width="16" height="34" rx="3" transform="rotate(-14 26 152)" style="stroke:var(--ink);stroke-width:3"/><path d="M50 146H196" style="stroke:var(--soft);stroke-dasharray:3 12;stroke-width:4"/><text x="123" y="134" text-anchor="middle" style="fill:var(--soft);stroke:none;font:600 17px Mukta,sans-serif">${t.steps}</text><g transform="translate(206 62) scale(1.32)">${FIG.squat}</g></svg>
  <p>${t.place}</p><button class="big" id="ready">${t.ready}</button><p style="margin-top:12px"><button class="btn" id="pback" style="width:100%">${t.back}</button></p>`;
- $("ready").onclick=()=>start(plan);$("pback").onclick=home;
+ $("ready").onclick=()=>start(ids);$("pback").onclick=home;
 }
 
 // ---------- camera + model ----------
-let landmarker=null,delegate="GPU",stream=null,facing="user",run=null,W=null,wl=null;
+let landmarker=null,delegate="GPU",stream=null,facing="user",run=null,W=null,wl=null,loop=0;
 const MODEL="https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task";
 async function getModel(){
  if(landmarker)return landmarker;
@@ -299,55 +368,54 @@ async function openCam(){
 async function wake(){try{wl=await navigator.wakeLock?.request("screen")}catch{wl=null}}
 document.addEventListener("visibilitychange",()=>{if(W&&document.visibilityState=="visible")wake()});
 
-const mkRun=st=>{const ex=EXM[st.id],l=lvl(ex);return{ex,st,target:l.reps,level:prog(ex.id).level,reps:0,good:0,state:"rest",ext:0,bad:false,liveN:0,lost:0,smooth:null,live:false,why:null}};
+const mkRun=id=>{const ex=EXM[id],l=lvl(ex);return{ex,target:l.reps,level:prog(id).level,reps:0,good:0,secs:0,inN:0,outN:0,lt:0,state:"rest",ext:0,bad:false,liveN:0,lost:0,smooth:null,live:false,why:null}};
 const clock=s=>`${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`;
+const showCount=R=>$("count").innerHTML=`${R.reps}<small>/${R.target}${R.ex.hold?" "+L().secs:""}</small>`;
 
-async function start(plan){
+async function start(ids){
  // iOS only speaks after a tap: unlock speech now, before any await.
  try{speechSynthesis.speak(new SpeechSynthesisUtterance(""))}catch{}
  const t=L();show("cam");
- const w=W={plan,i:0,phase:"rest",left:READY,paused:false,done:[],iv:0};
- run=mkRun(plan[0]);
- $("quit").textContent=t.end;$("pause").textContent=t.pause;
+ const w=W={ids,i:0,cd:0,t0:0,done:[],iv:0};
+ run=mkRun(ids[0]);
+ $("quit").textContent=t.end;$("next").textContent=ids.length>1?t.next:t.last;
  $("name").textContent="";$("time").textContent="";$("step").textContent="";$("count").textContent="";$("cd").hidden=true;cue(t.loading);
  try{await Promise.all([getModel(),openCam()])}catch(err){if(W===w)cue(t.fail+err.message,"bad");return}
  // Ended while loading: don't leave the camera on.
  if(W!==w){stream?.getTracks().forEach(x=>x.stop());stream=null;return}
- wake();tick();restPhase(true);
+ w.t0=Date.now();wake();tick(++loop);intro(true);
  w.iv=setInterval(second,1000);
 }
-// Rest screen: big countdown, what comes next, which way to face.
-function restPhase(first){
+// Short "up next" screen, then counting starts by itself. Next skips the wait.
+function intro(first){
  const t=L(),w=W,ex=run.ex,l=lvl(ex);
- w.phase="rest";w.left=first?READY:REST;run.live=false;
- $("name").textContent=ex[S.lang];$("count").innerHTML=`0<small>/${run.target}</small>`;$("step").textContent=t.stepOf(w.i+1,w.plan.length);
+ w.cd=first?8:5;run.live=false;
+ $("name").textContent=ex[S.lang];showCount(run);$("step").textContent=t.stepOf(w.i+1,w.ids.length);
+ $("next").textContent=t.go;
  $("cd").hidden=false;
- $("cd").innerHTML=`<div class="h">${first?t.getReady:t.rest} · ${t.next}</div>${fig(ex.id)}<div class="x">${esc(ex[S.lang])}${l.name==ex[S.lang]?"":"<br>"+esc(l.name)}</div><div class="h">${run.target} ${t.reps} · ${t.view[ex.view]}</div><div class="n" id="cdn">${w.left}</div>`;
+ $("cd").innerHTML=`<div class="h">${t.upNext}</div>${fig(ex.id)}<div class="x">${esc(ex[S.lang])}${l.name==ex[S.lang]?"":"<br>"+esc(l.name)}</div><div class="h">${run.target} ${unit(ex)} · ${t.view[ex.view]}</div><div class="n" id="cdn">${w.cd}</div>`;
  cue(ex.tip[S.lang]);
- say(`${first?"":t.stop+" "}${t.next}: ${ex[S.lang]}. ${t.view[ex.view]}.`,true);
+ say(`${ex[S.lang]}. ${t.view[ex.view]}.`,true);
+}
+function go(){
+ const w=W,t=L();w.cd=0;$("cd").hidden=true;run.live=true;
+ $("next").textContent=w.i==w.ids.length-1?t.last:t.next;
+ say(cue("go"),true);
 }
 function second(){
- const w=W,t=L();if(!w||w.paused)return;
- w.left--;
- if(w.phase=="rest"){
-  if($("cdn"))$("cdn").textContent=Math.max(w.left,0);
-  if(w.left<=3&&w.left>0)say(String(w.left),true);
-  if(w.left<=0){w.phase="work";w.left=run.st.s;$("cd").hidden=true;run.live=true;say(cue("go"),true)}
- }else{
-  if(w.left==10)say(t.ten,true);
-  if(w.left<=0){
-   w.done.push(run);w.i++;
-   if(w.i>=w.plan.length)return finish();
-   run=mkRun(w.plan[w.i]);restPhase(false);
-  }
- }
- $("time").textContent=w.phase=="work"?clock(Math.max(w.left,0)):"";
+ const w=W;if(!w)return;
+ $("time").textContent=clock(Math.floor((Date.now()-w.t0)/1000));
+ if(!w.cd)return;
+ w.cd--;if($("cdn"))$("cdn").textContent=w.cd;
+ if(w.cd>0&&w.cd<=3)say(String(w.cd),true);
+ if(!w.cd)go();
 }
-$("pause").onclick=()=>{
- const w=W;if(!w)return;w.paused=!w.paused;const t=L();
- $("pause").textContent=w.paused?t.resume:t.pause;
- if(w.phase=="work")run.live=!w.paused;
- cue(w.paused?t.paused:"go");
+$("next").onclick=()=>{
+ const w=W;if(!w||!w.t0)return;
+ if(w.cd)return go();
+ w.done.push(run);w.i++;
+ if(w.i>=w.ids.length)return finish();
+ run=mkRun(w.ids[w.i]);intro(false);
 };
 
 const BONES=[[11,12],[11,13],[13,15],[12,14],[14,16],[11,23],[12,24],[23,24],[23,25],[25,27],[24,26],[26,28]];
@@ -360,8 +428,9 @@ function draw(lm,color){
  for(const i of[11,12,13,14,15,16,23,24,25,26,27,28]){x.beginPath();x.arc(lm[i].x*c.width,lm[i].y*c.height,6,0,7);x.fill()}
 }
 // One detection per new camera frame (requestVideoFrameCallback), rAF where unsupported.
-function tick(){
- if(!W)return;const v=$("vid");
+// `g` retires the loop from an earlier workout: its pending frame callback would otherwise run a second loop.
+function tick(g){
+ if(!W||g!=loop)return;const v=$("vid");
  if(v.readyState>=2&&landmarker){
   AR=v.videoWidth/v.videoHeight;
   try{const r=landmarker.detectForVideo(v,performance.now());step(r.landmarks?.[0],r.worldLandmarks?.[0])}
@@ -370,17 +439,27 @@ function tick(){
    if(delegate=="GPU"){delegate="CPU";const old=landmarker;landmarker=null;try{old.close()}catch{}getModel().catch(()=>cue(L().fail+e.message,"bad"))}
   }
  }
- v.requestVideoFrameCallback?v.requestVideoFrameCallback(tick):requestAnimationFrame(tick);
+ const nx=()=>tick(g);v.requestVideoFrameCallback?v.requestVideoFrameCallback(nx):requestAnimationFrame(nx);
 }
 function step(lm,w){
- const R=run,ex=R.ex;
+ const R=run,ex=R.ex,now=performance.now(),dt=R.lt?Math.min((now-R.lt)/1000,.25):0;R.lt=now;
  if(!lm||!vis(lm,ex)){
   draw(lm,"#888");
   // Only react after ~20 lost frames, so one bad frame doesn't reset or nag.
-  if(++R.lost>=20){R.smooth=null;if(R.state=="move")R.state="rest";if(R.live)say(cue("body"))}
+  if(++R.lost>=20){R.smooth=null;R.inN=0;if(R.state=="move")R.state="rest";if(R.live)say(cue("body"))}
   return;
  }
  R.lost=0;
+ if(ex.hold){
+  const inPos=ex.hold(lm);R.inN=inPos?R.inN+1:0;R.outN=inPos?0:R.outN+1;
+  draw(lm,R.inN>=5?"#0a8f5a":"#888");
+  if(!R.live)return;
+  if(R.inN>=5){
+   const was=Math.floor(R.secs);R.secs+=dt;const s=Math.floor(R.secs);
+   if(s!=was){R.reps=R.good=s;showCount(R);cue("hold","good");if(s==R.target)say(L().cue.fin,true);else if(s%10==0)say(String(s),true)}
+  }else if(R.outN>=30)say(cue(ex.endCue,"bad"));
+  return;
+ }
  const raw=ex.metric(lm,w);R.smooth=R.smooth==null?raw:R.smooth*.6+raw*.4;const m=R.smooth;
  draw(lm,R.state=="move"&&R.bad?"#d9480f":"#0a8f5a");
  if(!R.live)return;
@@ -396,14 +475,14 @@ function step(lm,w){
  if(!past(R.ext,ex.act)){say(cue(ex.endCue,"bad"));return} // too small to count
  if(!past(R.ext,ex.ideal)){R.bad=true;R.why??=ex.endCue}
  R.reps++;if(!R.bad)R.good++;
- $("count").innerHTML=`${R.reps}<small>/${R.target}</small>`;
+ showCount(R);
  cue(R.bad?R.why:"good",R.bad?"bad":"good");
- // Fast moves (jacks, march): just the number, a full phrase each rep would pile up.
- say(R.target>20?String(R.reps):R.reps+". "+L().cue[R.bad?R.why:"good"],true);
- if(R.reps==R.target)setTimeout(()=>{if(run===R)say(L().cue.fin,true)},1500);
+ if(R.reps==R.target)say(L().cue.fin,true);
+ // Fast moves (jacks, high knees): just the number, a full phrase each rep would pile up.
+ else say(R.target>20?String(R.reps):R.reps+". "+L().cue[R.bad?R.why:"good"],true);
 }
 function stopCam(){const w=W;W=null;if(w)clearInterval(w.iv);stream?.getTracks().forEach(t=>t.stop());stream=null;try{wl?.release()}catch{}wl=null;try{speechSynthesis.cancel()}catch{}return w}
-$("quit").onclick=()=>{const w=W;if(!w)return;if(w.phase=="work"&&run.reps>0)w.done.push(run);finish()};
+$("quit").onclick=()=>{const w=W;if(!w)return;if(!w.cd&&run.reps>0)w.done.push(run);finish()};
 $("flip").onclick=async()=>{facing=facing=="user"?"environment":"user";try{await openCam()}catch(e){cue(L().fail+e.message,"bad")}};
 
 // ---------- result ----------
@@ -413,14 +492,16 @@ function finish(){
  for(const R of w.done){if(!R.reps)continue;prog(R.ex.id).log.push({d:today(),t:Date.now(),reps:R.reps,good:R.good,level:R.level});
   const x=per[R.ex.id]??={ex:R.ex,reps:0,good:0,target:0,all:true};x.reps+=R.reps;x.good+=R.good;x.target+=R.target;
   if(R.reps<R.target||stars(R.good,R.reps)<3)x.all=false}
- // Level up when every station of that exercise hit its target with 3 stars.
+ if(w.t0&&w.done.some(R=>R.reps))S.sessions.push({d:today(),t:Date.now(),secs:Math.round((Date.now()-w.t0)/1000)});
+ // Level up when every set of that exercise hit its target with 3 stars.
  const ups=[];
  for(const x of Object.values(per)){const p=prog(x.ex.id);if(x.all&&p.level<x.ex.levels.length-1){p.level++;ups.push(x.ex)}}
  save();
- const full=w.i>=w.plan.length;show("result");
+ const full=w.i>=w.ids.length;show("result");
  $("result").innerHTML=`<div class="badge ${ups.length?"star":""}">${ups.length?"★":"✓"}</div><h1>${full?t.finished:t.short}</h1>
- <div class="dcard">${Object.values(per).map(x=>`<div><span>${esc(x.ex[S.lang])}</span><span>${x.reps}/${x.target} <span class="st">${"★".repeat(stars(x.good,x.reps))}</span></span></div>`).join("")||`<p class="soft">—</p>`}</div>
- ${ups.length?`<div class="up">${t.levelUp}<br>${ups.map(e=>`${esc(e[S.lang])}: ${esc(lvl(e).name)}, ${lvl(e).reps} ${t.reps}`).join("<br>")}</div>`:`<p style="margin:16px 0">${t.keep}</p>`}
+ ${w.t0?`<p class="soft">${clock(Math.round((Date.now()-w.t0)/1000))}</p>`:""}
+ <div class="dcard">${Object.values(per).map(x=>`<div><span>${esc(x.ex[S.lang])}</span><span>${x.reps}/${x.target} ${unit(x.ex)} <span class="st">${"★".repeat(stars(x.good,x.reps))}</span></span></div>`).join("")||`<p class="soft">—</p>`}</div>
+ ${ups.length?`<div class="up">${t.levelUp}<br>${ups.map(e=>`${esc(e[S.lang])}: ${esc(lvl(e).name)}, ${lvl(e).reps} ${unit(e)}`).join("<br>")}</div>`:`<p style="margin:16px 0">${t.keep}</p>`}
  <button class="big" id="back">${t.finish}</button>`;
  say(ups.length?t.levelUp:t.finished,true);
  $("back").onclick=home;
